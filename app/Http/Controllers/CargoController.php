@@ -11,12 +11,12 @@ class CargoController extends Controller
     public function index()
     {
         $cargo = Cargo::all();
-        return view('areas.index', compact('areas'));
+        return view('cargos.index', compact('cargo'));
     }
 
     public function create()
     {
-        return view('areas.create');
+        return view('cargos.create');
     }
 
     public function store(StoreCargoRequest $request)
@@ -27,21 +27,21 @@ class CargoController extends Controller
         $cargo->descripcion=$request->descripcion;
         $cargo->save();
 
-        return redirect()->route('areas.index');
+        return redirect()->route('cargos.index');
     }
 
     public function show($id)
     {
         $cargo = Cargo::find($id);
 
-        return view('areas.show', compact('area'));
+        return view('cargos.show', compact('cargo'));
     }
 
     public function edit($id)
     {
         $cargo = Cargo::find($id);
 
-        return view('areas.edit', compact('area'));
+        return view('cargos.edit', compact('cargo'));
     }
 
     public function update(StoreCargoRequest $request, $id)
@@ -53,7 +53,7 @@ class CargoController extends Controller
         $cargo->descripcion=$request->descripcion;
         $cargo->save();
 
-        return redirect()->route('areas.index');
+        return redirect()->route('cargos.index');
     }
 
     public function destroy($id)
@@ -61,6 +61,6 @@ class CargoController extends Controller
         $cargo = Cargo::find($id);
         $cargo->delete();
 
-        return redirect()->route('areas.index');
+        return redirect()->route('cargos.index');
     }
 }

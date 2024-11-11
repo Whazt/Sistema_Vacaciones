@@ -21,13 +21,13 @@
     <body class="font-sans antialiased">
         <x-banner />
 
-        <div class="min-h-screen bg-gray-100">
-            @livewire('navigation')
-
-        
+        <div class=" min-w-full bg-gray-100">
+            @livewire('navegationv2')
+           
 
             <!-- Page Content -->
-            <main>
+            <main class=" ml-[14rem] mt-14 ">
+                @livewire('sidebar')
                 {{ $slot }}
             </main>
         </div>
