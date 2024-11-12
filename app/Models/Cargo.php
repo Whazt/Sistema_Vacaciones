@@ -3,8 +3,22 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Area;
 
 class Cargo extends Model
 {
     protected $table = 'cargos';
+
+    protected $fillable = ['nombre', 'descripcion', 'id_area'];
+
+    public function area()
+    {
+        return $this->belongsTo(Area::class, 'id_area');  // Relación de "pertenece a"
+    }
+
+    public function empleados()
+    {
+        return $this->hasMany(Empleado::class, 'id_cargo');  // Relación de "pertenece a"
+    }
+    
 }

@@ -1,3 +1,9 @@
 <x-app-layout>
-    Este es el menu de cargos
+    <x-slot name="title">
+        Cargos
+    </x-slot>
+
+    @livewire('cargo-show')
+
 </x-app-layout>
+
