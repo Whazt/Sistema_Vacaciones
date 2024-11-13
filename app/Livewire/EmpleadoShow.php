@@ -8,7 +8,7 @@ use Carbon\Carbon;
 
 class EmpleadoShow extends Component
 {
-    public $empleado_id, $nombres, $apellidos, $correo, $telefono, $estado, $fecha_ingreso, $dias_vacaciones_usados;
+    public $id, $nombres, $apellidos, $correo, $telefono, $id_cargo, $estado, $fecha_ingreso, $dias_vacaciones_usados;
     public $open_edit = false;
     protected $listeners = ['actrender' => 'render'];
 
@@ -23,11 +23,12 @@ class EmpleadoShow extends Component
     public function edit($idempleado)
     {
         $empleado = Empleado::findOrFail($idempleado);
-        $this->empleado_id = $empleado->id;
+        $this->id = $empleado->id;
         $this->nombres = $empleado->nombres;
         $this->apellidos = $empleado->apellidos;
         $this->correo = $empleado->correo;
         $this->telefono = $empleado->telefono;
+        $this->id_cargo = $empleado->id_cargo;
         $this->estado = $empleado->estado;
         $this->fecha_ingreso = $empleado->fecha_ingreso;
         $this->dias_vacaciones_usados = $empleado->dias_vacaciones_usados;
@@ -65,7 +66,7 @@ class EmpleadoShow extends Component
 
     public function resetForm()
     {
-        $this->empleado_id = null;
+        $this->id = null;
         $this->nombres = '';
         $this->apellidos = '';
         $this->correo = '';

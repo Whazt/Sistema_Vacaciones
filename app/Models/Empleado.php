@@ -18,6 +18,10 @@ class Empleado extends Model
         return $this->belongsTo(Cargo::class, 'id_cargo');  // Relación de "pertenece a"
     }
 
+    public function solicitud()
+    {
+        return $this->hasMany(Solicitud::class, 'id_empleado');  // Relación de "tiene muchos"
+    }
     
 
 
