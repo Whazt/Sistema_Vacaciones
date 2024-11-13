@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Area;
 use App\Models\Cargo;
+use App\Models\Empleado;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -54,5 +55,35 @@ class DatabaseSeeder extends Seeder
             'descripcion'=> 'encargado de salidas'    
         ]);
         $cargo->save();
+
+        $empleado = new Empleado([
+            'nombres' => 'Juan',
+            'apellidos' => 'Perez',
+            'correo' => 'juanperez@gmail.com',
+            'id_cargo' => 1,
+            'fecha_ingreso' => '2024-11-11',
+            'dias_vacaciones_usados' => 0,
+            'telefono' => '123456789',
+  
+            'estado' => 'activo',
+            
+            
+        ]);
+        $empleado->save();
+
+        $empleado = new Empleado([
+            'nombres' => 'Juana',
+            'apellidos' => 'Pereza',
+            'correo' => 'juanapereza@gmail.com',
+            'id_cargo' => 2,
+            'fecha_ingreso' => '2024-11-11',
+            'dias_vacaciones_usados' => 0,
+            'telefono' => '123456789',
+            'id_jefe' => 1,
+            'estado' => 'activo',
+
+            
+        ]);
+        $empleado->save();
     }
 }

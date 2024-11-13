@@ -10,6 +10,11 @@ class AreaCreateModal extends Component
     public $open = false;
     public $nombre, $descripcion;
 
+    protected $rules = [
+        'nombre' => 'required|max:255',
+        'descripcion' => 'required|max:255',
+    ];
+    
     public function store()
     {
         Area::create([

@@ -1,13 +1,15 @@
 @auth
-    <x-app-layout>
-        Hola Mundo 
-    </x-app-layout>
+    
+    <script>
+        window.location.href = "{{ route('paginas.areas') }}";
+    </script>
+
 @else
-    <x-app-layout>
-        <script>
-            window.location.href = "{{ route('login') }}";
-        </script>
-    </x-app-layout>
+    
+    <script>
+        window.location.href = "{{ route('login') }}";
+    </script>
+   
 @endauth
 
 {{-- <!DOCTYPE html>

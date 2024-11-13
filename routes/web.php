@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AreaController;
 use App\Http\Controllers\CargoController;
+use App\Http\Controllers\EmpleadoController;
 use App\Models\Area;
 use App\Models\Cargo;
 
@@ -22,20 +23,20 @@ Route::middleware([
 
 //Ruta de Areas
 Route::get('/areas', [AreaController::class, 'index'])
-    ->name('areas.index');
+    ->name('paginas.areas');
 
 //Ruta de Cargos
 Route::get('/cargos', [CargoController::class, 'index'])
-    ->name('cargos.index');
+    ->name('paginas.cargos');
 
-//Ruta de Empleados
-Route::get('/empleados', [CargoController::class, 'index'])
-    ->name('empleados.index');
+//Ruta de Emplead
+Route::get('/empleados', [EmpleadoController::class, 'index'])
+    ->name('paginas.empleados');
 
 //Ruta de Vacaciones
 Route::get('/vacaciones', [CargoController::class, 'index'])
-    ->name('vacaciones.index');
+    ->name('paginas.vacaciones');
 
 //Ruta de Solicitudes
 Route::get('/solicitudes', [CargoController::class, 'index'])
-    ->name('solicitudes.index');
+    ->name('paginas.solicitudes');
