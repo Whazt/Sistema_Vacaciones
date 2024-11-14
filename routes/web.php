@@ -3,12 +3,14 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AreaController;
 use App\Http\Controllers\CargoController;
+use App\Http\Controllers\SolicitudController;
 use App\Http\Controllers\EmpleadoController;
+use App\Http\Controllers\VacacionesController;
 use App\Models\Area;
 use App\Models\Cargo;
 
 Route::get('/', function () {
-    return view('paginas.areas');
+    return view('paginas.vacaciones');
 });
 
 Route::middleware([
@@ -32,12 +34,13 @@ Route::middleware([
         ->name('paginas.empleados');
 
     //Ruta de Vacaciones
-    Route::get('/vacaciones', [CargoController::class, 'index'])
+    Route::get('/vacaciones', [VacacionesController::class, 'index'])
         ->name('paginas.vacaciones');
 
     //Ruta de Solicitudes
-    Route::get('/solicitudes', [CargoController::class, 'index'])
+    Route::get('/solicitudes', [SolicitudController::class, 'index'])
         ->name('paginas.solicitudes');
+
 });
 
 

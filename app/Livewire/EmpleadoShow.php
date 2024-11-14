@@ -24,6 +24,7 @@ class EmpleadoShow extends Component
         'estado' => 'required|string',
     ];
 
+    // metodos para editar y guardar
     public function edit($idempleado)
     {
         $empleado = Empleado::findOrFail($idempleado);
@@ -69,25 +70,15 @@ class EmpleadoShow extends Component
         $this->open_edit = false;
     }
 
+    // metodos para borrar
+
     public function delete(Empleado $empleado)
     {
         $empleado->delete();
         $this->resetForm();
     }
 
-    public function resetForm()
-    {
-        $this->id = null;
-        $this->nombres = '';
-        $this->apellidos = '';
-        $this->correo = '';
-        $this->telefono = '';
-        $this->estado = 'activo';
-        $this->fecha_ingreso = null;
-        $this->dias_vacaciones_usados = 0;
-        $this->id_jefe = '';
-    }
- 
+    // metodos para CALCULAR DIAS DISPONIBLES
     public function calcularDiasVacacionesDisponibles($fechaIngreso, $diasUsados)
     {
         $fechaIngreso = Carbon::parse($fechaIngreso); // Convertir a Carbon si no lo está
@@ -104,6 +95,7 @@ class EmpleadoShow extends Component
     }
 
 
+    // metodos para cargar datos
     public function load_empleadosarea()
     {
         // Obtener todos los empleados asociados a los cargos del área específica
