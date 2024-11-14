@@ -5,6 +5,9 @@ namespace Database\Seeders;
 use App\Models\Area;
 use App\Models\Cargo;
 use App\Models\Empleado;
+use App\Models\Solicitud;
+use Carbon\Carbon; 
+
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -85,5 +88,21 @@ class DatabaseSeeder extends Seeder
             
         ]);
         $empleado->save();
+
+           // Creación de 5 registros para la tabla 'solicitudes'
+           $empleados = [1, 2]; // Id de empleados disponibles
+
+           for ($i = 0; $i < 5; $i++) {
+               $solicitud = new Solicitud([
+                   'id_empleado' => $empleados[array_rand($empleados)], // Elige aleatoriamente entre los empleados 1 y 2
+                   'fecha_inicio' => Carbon::now()->addDays($i)->toDateString(), // Fecha de inicio en los próximos días
+                   'fecha_fin' => Carbon::now()->addDays($i + 1)->toDateString(), // Fecha de fin al siguiente día
+                   'estado' => 'pendiente', // Estado por defecto
+                   'detalles' => 'Solicitud de prueba ' . ($i + 1), // Detalles de la solicitud
+                   'aprobacion_jefe' => null, // Sin aprobación del jefe
+                   'aprobacion_rh' => null, // Sin aprobación de RH
+               ]);
+               $solicitud->save(); // Guarda el registro en la base de datos
+            }
     }
 }

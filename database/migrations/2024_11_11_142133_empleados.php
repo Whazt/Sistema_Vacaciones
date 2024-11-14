@@ -20,10 +20,10 @@ return new class extends Migration
             $table->string('correo')->unique();
             $table->integer('id_cargo');
             $table->date('fecha_ingreso');
-            $table->integer('dias_vacaciones_usados');
+            $table->integer('dias_vacaciones_usados')->nullable();
             $table->string('telefono');
             $table->string('id_jefe')->nullable();
-            $table->string('estado')->default('activo');
+            $table->string('estado')->default('activo')->nullable();
             $table->timestamps();
         });
     }

@@ -11,7 +11,7 @@ class Empleado extends Model
     use HasFactory;
     protected $table = 'empleados';
 
-    protected $fillable = ['nombre', 'descripcion', 'correo', 'id_cargo','fecha_ingreso','dias_vacaciones_usados' , 'telefono','id_jefe', 'estado'];
+    protected $fillable = ['nombres', 'apellidos', 'correo', 'id_cargo','fecha_ingreso','dias_vacaciones_usados' , 'telefono','id_jefe', 'estado'];
 
     public function cargo()
     {

@@ -2,14 +2,18 @@
 
 namespace App\Livewire;
 
+use App\Models\Area;
 use Livewire\Component;
 use App\Models\Empleado;
+use App\Models\Cargo;
 use Carbon\Carbon;
 
 class EmpleadoShow extends Component
 {
-    public $id, $nombres, $apellidos, $correo, $telefono, $id_cargo, $estado, $fecha_ingreso, $dias_vacaciones_usados;
+    public $id, $nombres, $apellidos, $correo, $telefono, $id_cargo, $estado, $fecha_ingreso, $dias_vacaciones_usados, $id_jefe;
     public $open_edit = false;
+    public $area_selected;
+    public $cargos_por_area = [], $jefes = [];
     protected $listeners = ['actrender' => 'render'];
 
     protected $rules = [
@@ -30,14 +34,16 @@ class EmpleadoShow extends Component
         $this->telefono = $empleado->telefono;
         $this->id_cargo = $empleado->id_cargo;
         $this->estado = $empleado->estado;
+        $this->id_jefe = $empleado->id_jefe;
         $this->fecha_ingreso = $empleado->fecha_ingreso;
         $this->dias_vacaciones_usados = $empleado->dias_vacaciones_usados;
+        $this->area_selected = $empleado->cargo->area->id;
         $this->open_edit = true;
     }
 
     public function update()
     {
-        $uniqueRule = $this->empleado_id ? 'unique:empleados,correo,' . $this->empleado_id : 'unique:empleados,correo';
+        $uniqueRule = $this->id ? 'unique:empleados,correo,' . $this->id: 'unique:empleados,correo';
         $this->validate([
             'nombres' => 'required|string|max:255',
             'apellidos' => 'required|string|max:255',
@@ -46,12 +52,17 @@ class EmpleadoShow extends Component
             'estado' => 'required|string',
         ]);
 
-        Empleado::where('id', $this->empleado_id)->update([
+        Empleado::where('id', $this->id)->update([
             'nombres' => $this->nombres,
             'apellidos' => $this->apellidos,
             'correo' => $this->correo,
             'telefono' => $this->telefono,
             'estado' => $this->estado,
+            'id_jefe' => $this->id_jefe,
+            'id_cargo' => $this->id_cargo,
+            'dias_vacaciones_usados' => $this->dias_vacaciones_usados,
+            'fecha_ingreso' => $this->fecha_ingreso,
+
         ]);
 
         $this->resetForm();
@@ -74,8 +85,9 @@ class EmpleadoShow extends Component
         $this->estado = 'activo';
         $this->fecha_ingreso = null;
         $this->dias_vacaciones_usados = 0;
+        $this->id_jefe = '';
     }
-
+ 
     public function calcularDiasVacacionesDisponibles($fechaIngreso, $diasUsados)
     {
         $fechaIngreso = Carbon::parse($fechaIngreso); // Convertir a Carbon si no lo está
@@ -91,13 +103,37 @@ class EmpleadoShow extends Component
         return max(0, $diasDisponibles); // Asegura que no haya valores negativos
     }
 
+
+    public function load_empleadosarea()
+    {
+        // Obtener todos los empleados asociados a los cargos del área específica
+        $empleados = Empleado::whereHas('cargo', function ($query) {
+            $query->where('id_area', $this->area_selected);
+        })->get();
+        // Guardar los empleados en la propiedad para usarlos en la vista o donde los necesites
+        $this->jefes = $empleados;
+    }
+
+    public function load_cargos()
+    {
+        $this->cargos_por_area = Cargo::where('id_area', $this->area_selected)->get();
+    }
+
+    public function loadCargosYEmpleados()
+    {
+        $this->load_cargos();
+        $this->load_empleadosarea();
+    }
+
     public function render()
     {
         $empleados = Empleado::all()->map(function($empleado) {
             $empleado->dias_disponibles = $this->calcularDiasVacacionesDisponibles($empleado->fecha_ingreso, $empleado->dias_vacaciones_usados);
             return $empleado;
-        });
+        }); 
 
-        return view('livewire.empleado-show', compact('empleados'));
+        $areas = Area::all();
+
+        return view('livewire.empleado-show', compact('empleados'), compact('areas'));
     }
 }
