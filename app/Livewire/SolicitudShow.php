@@ -4,11 +4,12 @@ namespace App\Livewire;
 
 use App\Models\Solicitud;
 use App\Models\Empleado;
+use App\Http\Requests\SolicitudRequest;
 use Livewire\Component;
 
 class SolicitudShow extends Component
 {
-    public $id, $id_empleado, $fecha_inicio, $fecha_fin, $estado, $detalles, $aprobacion_jefe, $aprovacion_rh;
+    public $id, $id_empleado, $fecha_inicio, $fecha_fin, $estado, $detalles, $aprobacion_jefe, $aprobacion_rh;
     public $open_edit=false;
 
 
@@ -22,28 +23,29 @@ class SolicitudShow extends Component
         $this->fecha_fin = $solicitud->fecha_fin;
         $this->estado = $solicitud->estado;
         $this->detalles = $solicitud->detalles;
+        $this->aprobacion_jefe = $solicitud->aprobacion_jefe;
+        $this->aprobacion_rh = $solicitud->aprobacion_rh;
         $this->open_edit = true;
     }
 
     public function update(){
-        $uniqueRule = $this->id ? 'unique:solicitudes,id_empleado' : 'unique:solicitudes,id_empleado';
-        $this->validate([
-            'id_empleado' => 'required|integer|',
-            'fecha_inicio' => 'required|date',
-            'fecha_fin' => 'required|date',
-            'detalles' => 'required|string|max:255',
-            'estado' => 'required|string',
-        ]);
-        Solicitud::where('id', $this->id)->update([
-            'id_empleado' => $this->id_empleado,
-            'fecha_inicio' => $this->fecha_inicio,
-            'fecha_fin' => $this->fecha_fin,
-            'estado' => $this->estado,
-            'detalles' => $this->detalles,
-        ]);
+        $request = new SolicitudRequest();
+       
+        // Validar los datos usando las reglas y mensajes de la instancia
+        
+        $validatedData = $this->validate(
+            $request->rules(true),
+            $request->messages()
+        );  
+        Solicitud::where('id', $this->id)->update($validatedData);
         $this->open_edit = false;
     }
 
+    public function cancelar()
+    {
+        $this->open_edit = false;
+        $this->resetValidation();
+    }
     public function delete(Solicitud $solicitud){
         $solicitud->delete();
     }

@@ -6,6 +6,7 @@ use App\Models\Area;
 use Livewire\Component;
 use App\Models\Empleado;
 use App\Models\Cargo;
+use App\Http\Requests\EmpleadoRequest;
 use Carbon\Carbon;
 
 class EmpleadoShow extends Component
@@ -15,14 +16,6 @@ class EmpleadoShow extends Component
     public $area_selected;
     public $cargos_por_area = [], $jefes = [];
     protected $listeners = ['actrender' => 'render'];
-
-    protected $rules = [
-        'nombres' => 'required|string|max:255',
-        'apellidos' => 'required|string|max:255',
-        'correo' => 'required|email|unique:empleados,correo',
-        'telefono' => 'required|string|max:15',
-        'estado' => 'required|string',
-    ];
 
     // metodos para editar y guardar
     public function edit($idempleado)
@@ -44,29 +37,18 @@ class EmpleadoShow extends Component
 
     public function update()
     {
-        $uniqueRule = $this->id ? 'unique:empleados,correo,' . $this->id: 'unique:empleados,correo';
-        $this->validate([
-            'nombres' => 'required|string|max:255',
-            'apellidos' => 'required|string|max:255',
-            'correo' => 'required|email|' . $uniqueRule,
-            'telefono' => 'required|string|max:15',
-            'estado' => 'required|string',
-        ]);
+        $request = new EmpleadoRequest();
+        // Agregar el ID a la solicitud
+        request()->merge(['id' => $this->id]);
+        // Validar los datos usando las reglas y mensajes de la instancia
+        
+        $validatedData = $this->validate(
+            $request->rules(),
+            $request->messages()
+        );
+        Empleado::where('id', $this->id)->update($validatedData);
 
-        Empleado::where('id', $this->id)->update([
-            'nombres' => $this->nombres,
-            'apellidos' => $this->apellidos,
-            'correo' => $this->correo,
-            'telefono' => $this->telefono,
-            'estado' => $this->estado,
-            'id_jefe' => $this->id_jefe,
-            'id_cargo' => $this->id_cargo,
-            'dias_vacaciones_usados' => $this->dias_vacaciones_usados,
-            'fecha_ingreso' => $this->fecha_ingreso,
 
-        ]);
-
-        $this->resetForm();
         $this->open_edit = false;
     }
 
@@ -75,7 +57,7 @@ class EmpleadoShow extends Component
     public function delete(Empleado $empleado)
     {
         $empleado->delete();
-        $this->resetForm();
+        
     }
 
     // metodos para CALCULAR DIAS DISPONIBLES
@@ -115,6 +97,12 @@ class EmpleadoShow extends Component
     {
         $this->load_cargos();
         $this->load_empleadosarea();
+    }
+
+    public function cancelar()
+    {
+        $this->open_edit = false;
+        $this->resetValidation();
     }
 
     public function render()

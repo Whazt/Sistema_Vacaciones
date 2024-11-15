@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Cargo;
 use Livewire\Component;
 use App\Models\Area;
+use App\Http\Requests\CargoRequest;
 
 class CargoShow extends Component
 {
@@ -35,16 +36,21 @@ class CargoShow extends Component
 
     public function update()
     {
-        $uniqueRule = $this->id ? 'unique:areas,nombre,' . $this->id : 'unique:areas,nombre';
-        $this->validate([ 'nombre' => 'required|string|'.$uniqueRule,
-        'descripcion' => 'required|string', 
-        ]);
-        Cargo::where('id', $this->id)->update([
-            'nombre' => $this->nombre,
-            'descripcion' => $this->descripcion,
-            'id_area' => $this->id_area,
-        ]);
+        $request = new CargoRequest();
+        // Validar los datos usando las reglas y mensajes de la instancia
+        $validatedData = $this->validate(
+            $request->rules(),
+            $request->messages()
+        );
+        // Crear el área con los datos validados
+        Cargo::where('id', $this->id)->update($validatedData);
         $this->open_edit = false;
+    }
+
+    public function cancelar()
+    {
+        $this->open_edit = false;
+        $this->resetValidation();
     }
 
     public function delete(Cargo $cargo){

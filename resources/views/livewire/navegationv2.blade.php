@@ -25,6 +25,9 @@
                   <li>
                     <a href="{{ route('profile.show') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Tu Perfil</a>
                   </li>
+                  <x-dropdown-link href="{{ route('profile.show') }}">
+                    {{ __('Profile') }}
+                  </x-dropdown-link>
                   <form method="POST" action="{{ route('logout') }}" x-data>
                     @csrf
                     <a href="{{ route('logout') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem"  

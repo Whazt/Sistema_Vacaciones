@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Empleado;
 use Livewire\Component;
 use App\Models\Solicitud;
+use App\Http\Requests\SolicitudRequest;
 
 class SolicitudCreateModal extends Component
 {
@@ -12,28 +13,25 @@ class SolicitudCreateModal extends Component
     public $id, $id_empleado, $fecha_inicio, $fecha_fin, $estado, $detalles, $aprobacion_jefe, $aprobacion_rh;
     public $open = false;
 
-    public $rules = [
-        'id_empleado' => 'required|integer',
-        'fecha_inicio' => 'required|date',
-        'fecha_fin' => 'required|date',
-        'detalles' => 'required|string|max:255',
-        
-    ];
     public function store()
     {
-        $this->validate();
-        Solicitud::create([
-            'id_empleado' => $this->id_empleado,
-            'fecha_inicio' => $this->fecha_inicio,
-            'fecha_fin' => $this->fecha_fin,
-            'estado' => $this->estado,
-            'detalles' => $this->detalles,
-            'aprobacion_jefe' => $this->aprobacion_jefe,
-            'aprobacion_rh' => $this->aprobacion_rh,
-        ]);
+        $request = new SolicitudRequest();
+        // Validar los datos usando las reglas y mensajes de la instancia
+        $validatedData = $this->validate(
+            $request->rules(),
+            $request->messages()
+        );
+        Solicitud::create($validatedData);
         $this->open = false;
         $this->resetform();
         $this->dispatch('actrender');
+    }
+
+    public function cancelar()
+    {
+        $this->resetform();
+        $this->open = false;
+        $this->resetValidation();
     }
 
     public function resetform()

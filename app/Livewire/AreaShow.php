@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\Area;
+use App\Http\Requests\AreaRequest;
 
 use function Termwind\render;
 
@@ -13,10 +14,6 @@ class AreaShow extends Component
     public $open_edit=false;
     protected $listeners = ['actrender' => 'render'];
 
-    protected $rules = [
-        'nombre' => 'required|string|max:255|unique:areas,nombre',
-        'descripcion' => 'required|string|max:255',
-    ];
 
     public function edit($idarea)
     {
@@ -30,15 +27,22 @@ class AreaShow extends Component
 
     public function update()
     {
-        $uniqueRule = $this->id ? 'unique:areas,nombre,' . $this->id : 'unique:areas,nombre';
-        $this->validate([ 'nombre' => 'required|string|' . $uniqueRule, 
-        'descripcion' => 'required|string', 
-        ]);
-        Area::where('id', $this->id)->update([
-            'nombre' => $this->nombre,
-            'descripcion' => $this->descripcion,
-        ]);
+        $request = new AreaRequest();
+        // Validar los datos usando las reglas y mensajes de la instancia
+        $validatedData = $this->validate(
+            $request->rules(),
+            $request->messages()
+        );
+        // Crear el área con los datos validados
+       
+        Area::where('id', $this->id)->update($validatedData);
         $this->open_edit = false;
+    }
+
+    public function cancelar()
+    {
+        $this->open_edit = false;
+        $this->resetValidation();
     }
 
     public function render()

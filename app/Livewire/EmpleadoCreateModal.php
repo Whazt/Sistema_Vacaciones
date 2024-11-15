@@ -6,6 +6,7 @@ use Livewire\Component;
 use App\Models\Empleado;
 use App\Models\Cargo;
 use App\Models\Area;
+use App\Http\Requests\EmpleadoRequest;
 
 class EmpleadoCreateModal extends Component
 {
@@ -15,13 +16,6 @@ class EmpleadoCreateModal extends Component
     public $area_selected;
     protected $listeners = ['actrender' => 'render'];
 
-    protected $rules = [
-        'nombres' => 'required|string|max:255',
-        'apellidos' => 'required|string|max:255',
-        'correo' => 'required|email|unique:empleados,correo',
-        'telefono' => 'required|string|max:15',
-       
-    ];
 
     public function load_empleadosarea()
     {
@@ -45,25 +39,19 @@ class EmpleadoCreateModal extends Component
     }
     public function store()
     {
-        $this->id_jefe = 1;
-        $this->validate();
-        $empleado = new Empleado([
-            'nombres' => $this->nombres,
-            'apellidos' => $this->apellidos,
-            'correo' => $this->correo,
-            'id_cargo' => $this->id_cargo,
-            'fecha_ingreso' => $this->fecha_ingreso,
-            'telefono' => $this->telefono,
-            'id_jefe' => $this->id_jefe,
-            'estado' => $this->estado,
-            
-        ]);
-        $empleado->save();
+        $request = new EmpleadoRequest();
+        // Validar los datos usando las reglas y mensajes de la instancia
+        $validatedData = $this->validate(
+            $request->rules(),
+            $request->messages()
+        );
+        // Crear el área con los datos validados
+        Empleado::create($validatedData);
+        
         $this->open = false;
         $this->resetform();
+        $this->resetValidation();
         $this->dispatch('actrender');
-
-    
     }
 
     public function resetform()
@@ -77,9 +65,15 @@ class EmpleadoCreateModal extends Component
         $this->fecha_ingreso = null;
         $this->id_cargo = null;
         $this->dias_vacaciones_usados = 0;
-        $this->id_jefe = 1;
+        $this->id_jefe = null;
         $this->area_selected = null;
         $this->cargos_por_area = [];
+    }
+    public function cancelar()
+    {
+        $this->resetform();
+        $this->open = false;
+        $this->resetValidation();
     }
     public function render()
     {

@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Area;
+use App\Http\Requests\AreaRequest;
 use Livewire\Component;
 
 class AreaCreateModal extends Component
@@ -10,21 +11,29 @@ class AreaCreateModal extends Component
     public $open = false;
     public $nombre, $descripcion;
 
-    protected $rules = [
-        'nombre' => 'required|max:255',
-        'descripcion' => 'required|max:255',
-    ];
-    
     public function store()
     {
-        Area::create([
-            'nombre' => $this->nombre,
-            'descripcion' => $this->descripcion,
-        ]);
-
+        $request = new AreaRequest();
+        // Validar los datos usando las reglas y mensajes de la instancia
+        $validatedData = $this->validate(
+            $request->rules(),
+            $request->messages()
+        );
+        // Crear el área con los datos validados
+        Area::create($validatedData);
+       
+        $this->reset(['nombre', 'descripcion']);
         $this->open = false;
-        $this->dispatch('actrender'); // Cambiado a minúsculas
+        $this->dispatch('actrender');
     }
+
+    public function cancelar()
+    {
+        $this->reset(['nombre', 'descripcion']);
+        $this->open = false;
+        $this->resetValidation();
+    }
+
 
     public function render()
     {

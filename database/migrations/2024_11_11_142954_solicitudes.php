@@ -16,7 +16,7 @@ return new class extends Migration
             $table->integer('id_empleado');
             $table->date('fecha_inicio');
             $table->date('fecha_fin');
-            $table->string('estado')->default('pendiente');
+            $table->string('estado')->default('pendiente')->nullable();
             $table->string('detalles');
             $table->date('aprobacion_jefe')->nullable();
             $table->date('aprobacion_rh')->nullable();
