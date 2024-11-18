@@ -6,6 +6,8 @@ use App\Models\Solicitud;
 use App\Models\Empleado;
 use App\Http\Requests\SolicitudRequest;
 use Livewire\Component;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class Show extends Component
 {
@@ -50,6 +52,22 @@ class Show extends Component
         $solicitud->delete();
     }
     
+    public function loadByUser(){
+        $user = Auth::user();
+
+        if (Auth::user()->hasRole('Admin') || $user->hasRole('RH')) {
+            return Solicitud::all(); // Todas las solicitudes
+        }
+    
+        if ($user->hasRole('Jefe')) {
+            return Solicitud::whereIn('empleado_id', $user->subordinados()->pluck('id'))->get();
+        }
+    
+        return Solicitud::where('empleado_id', $user->id)->get(); 
+
+    }
+
+
     public function render()
     {
         $solicitudes = Solicitud::all();

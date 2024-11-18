@@ -6,9 +6,10 @@ use App\Models\Area;
 use App\Models\Cargo;
 use App\Models\Empleado;
 use App\Models\Solicitud;
+use App\Models\User;
 use Carbon\Carbon; 
 
-use App\Models\User;
+
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -19,15 +20,19 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->call(RoleSeeder::class);
+
         User::Create([
             'name' => 'Juan Perez',
             'email' => 'juanperez@gmail.com',
             'password' => bcrypt('Admin123') // password
             
-        ])->assignRole('admin');
-        User::factory(10)->create();
+        ])->assignRole('Admin');
+        $users = User::factory(10)->create();
  
-        $this->call(RoleSeeder::class);
+        $users->each(function ($user) {
+            $user->assignRole('Empleado');
+        });
 
         $area = new Area([
             'nombre' => 'Mercadeo',
