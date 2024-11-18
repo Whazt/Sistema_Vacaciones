@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Empleado;
 
 use App\Models\Area;
 use Livewire\Component;
@@ -9,7 +9,7 @@ use App\Models\Cargo;
 use App\Http\Requests\EmpleadoRequest;
 use Carbon\Carbon;
 
-class EmpleadoShow extends Component
+class Show extends Component
 {
     public $id, $nombres, $apellidos, $correo, $telefono, $id_cargo, $estado, $fecha_ingreso, $dias_vacaciones_usados, $id_jefe;
     public $open_edit = false;
@@ -114,6 +114,6 @@ class EmpleadoShow extends Component
 
         $areas = Area::all();
 
-        return view('livewire.empleado-show', compact('empleados'), compact('areas'));
+        return view('livewire.empleado.show', compact('empleados'), compact('areas'));
     }
 }

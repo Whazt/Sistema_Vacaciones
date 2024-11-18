@@ -1,6 +1,6 @@
 <div>
     <div class="bg-slate-100 min-h-full">
-        @livewire('empleado-create-modal')
+        @livewire('cargo.create-modal')
 
         {{-- carga de registros  --}}
         <section class="container ">
@@ -33,7 +33,7 @@
         
                                         <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                             <button class="flex items-center gap-x-2">
-                                                <span>Correo</span>
+                                                <span>Descripción</span>
         
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
                                                     <path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
@@ -42,25 +42,7 @@
                                         </th>
                                         <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                             <button class="flex items-center gap-x-2">
-                                                <span>Cargo</span>
-        
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
-                                                </svg>
-                                            </button>
-                                        </th>
-                                        <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                            <button class="flex items-center gap-x-2">
-                                                <span>Fecha Ingreso</span>
-        
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
-                                                </svg>
-                                            </button>
-                                        </th>
-                                        <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                            <button class="flex items-center gap-x-2">
-                                                <span>Días Disponibles</span>
+                                                <span>Área</span>
         
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
                                                     <path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
@@ -74,7 +56,7 @@
                                     </tr>
                                 </thead>
                                 <tbody class="bg-white divide-y divide-gray-200 ">
-                                    @foreach($empleados as $item)
+                                    @foreach($cargos as $item)
                                         <tr>
                                             <td class="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
                                                 <div class="inline-flex items-center gap-x-3">
@@ -91,34 +73,22 @@
                                             <td class="px-2 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
                                                 <div class="inline-flex items-center px-3 py-1 rounded-full gap-x-2 ">
             
-                                                    <h2 class="text-sm font-normal ">{{$item->nombres}} {{$item->apellidos}}</h2>
+                                                    <h2 class="text-sm font-normal ">{{$item->nombre}}</h2>
                                                 </div>
                                             </td>
                                             <td class="px-1 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
                                                 <div class="inline-flex items-center px-3 py-1 rounded-full  ">
             
-                                                    <h2 class="text-sm font-normal ">{{$item->correo}}</h2>
+                                                    <h2 class="text-sm font-normal ">{{$item->descripcion}}</h2>
                                                 </div>
                                             </td>
                                             <td class="px-1 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
                                                 <div class="inline-flex items-center px-3 py-1 rounded-full gap-x-2  ">
             
-                                                    <h2 class="text-sm font-normal ">{{$item->cargo->nombre}}</h2>
+                                                    <h2 class="text-sm font-normal ">{{$item->area->nombre}}</h2>
                                                 </div>
                                             </td>
-                                            <td class="px-1 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
-                                                <div class="inline-flex items-center px-3 py-1 rounded-full gap-x-2  ">
-            
-                                                    <h2 class="text-sm font-normal ">{{$item->fecha_ingreso}}</h2>
-                                                </div>
-                                            </td>
-                                            <td class="px-1 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
-                                                <div class="inline-flex items-center px-3 py-1 rounded-full gap-x-2  ">
-            
-                                                    <h2 class="text-sm font-normal ">{{$item->dias_disponibles}}</h2>
-                                                </div>
-                                            </td>
-                                            
+                                           
                                             <td class="px-4 py-4 text-sm whitespace-nowrap">
                                                 <div class="flex items-center gap-x-6">
                                                     <button wire:click="edit({{ $item->id }})" class="text-gray-500 transition-colors duration-200  hover:text-yellow-500 focus:outline-none">
@@ -149,96 +119,45 @@
     {{-- modal de edicion --}}
     <x-dialog-modal wire:model="open_edit">
         <x-slot name="title">
-           
-            Editar Empleado
+            Editar Área
         </x-slot>
+        <br/>
         <x-slot name="content">
             <div class="mb-5">
-                <label for="nombres" class="block mb-2 text-sm font-medium text-gray-900 ">Nombres</label>
-                <input wire:model="nombres" type="nombre" id="nombres" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  " required />
-                @error('nombres')
-                    <p class="text-red-500 text-xs italic">{{ $message }}</p>                    
+                <label for="nombre" class="block mb-2 text-sm font-medium text-gray-900 ">Nombre</label>
+                <input wire:model="nombre" type="nombre" id="nombre" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "  required />
+                @error('nombre')
+                    <x-input-error :message="$errors->first('nombre')" />
                 @enderror
             </div>
             <div class="mb-5">
-                <label for="apellido" class="block mb-2 text-sm font-medium text-gray-900 ">Apellidos</label>
-                <input wire:model="apellidos" type="nombre" id="apellido" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  " required />
-                @error('apellidos')
-                    <p class="text-red-500 text-xs italic">{{ $message }}</p>                    
+                <label for="descripcion" class="block mb-2 text-sm font-medium text-gray-900 ">Descripción</label>
+                <textarea wire:model="descripcion" type="descripcion" id="descripcion" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  " required /></textarea>
+                @error('descripcion')
+                    <x-input-error :message="$errors->first('descripcion')" />
                 @enderror
-            </div>
-
-            <div class="mb-5">
-                <label for="correo" class="block mb-2 text-sm font-medium text-gray-900 ">Correo</label>
-                <input wire:model="correo" type="email" id="correo" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  " required />
-                @error('correo')
-                    <p class="text-red-500 text-xs italic">{{ $message }}</p>                    
-                @enderror
-            </div>
-            <div class="mb-5">
-                <label for="fecha" class="block mb-2 text-sm font-medium text-gray-900 ">Fecha de Ingreso</label>
-                <input wire:model="fecha_ingreso" type="date" id="fecha" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  " required />
-                 @error('fecha_ingreso')                
-                    <p class="text-red-500 text-xs italic">{{ $message }}</p>                    
-                @enderror
-            </div>
-            <div class="mb-5">
-                <label for="telefono" class="block mb-2 text-sm font-medium text-gray-900 ">Télefono</label>
-                <input wire:model="telefono" type="number" id="telefono" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  " required />
-                @error('telefono')
-                    <p class="text-red-500 text-xs italic">{{ $message }}</p>                    
-                @enderror
-            </div>
-
-            
+            </div>  
             <div class="mb-5">
                 <label for="nombre" class="block mb-2 text-sm font-medium text-gray-900 ">Área</label>
-                <select id="area" wire:model="area_selected" wire:change="loadCargosYEmpleados()" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  ">
-                    <option value="">Selecciona un Área</option>
+                <select id="area" wire:model="id_area" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  ">
+                    <option value="">Selecciona un área</option>
                     @foreach($areas as $area)
                         <option value="{{ $area->id }}">{{ $area->nombre }}</option>
                     @endforeach
                 </select>
-            </div>
-
-            <div class="mb-5">
-                <label for="nombre" class="block mb-2 text-sm font-medium text-gray-900 ">Cargo</label>
-                <select id="area" wire:model="id_cargo" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  ">
-                    <option value="">Selecciona un Cargo</option>
-                    @foreach($cargos_por_area as $cargo_area)
-                        <option value="{{ $cargo_area->id }}">{{ $cargo_area->nombre }}</option>
-                    @endforeach
-                </select>
-                @error('id_cargo')
-                    <p class="text-red-500 text-xs italic">{{ $message }}</p>                    
+                @error('id_area')
+                    <x-input-error :message="$errors->first('id_area')" />
                 @enderror
             </div>
-            <div class="mb-5">
-                <label for="nombre" class="block mb-2 text-sm font-medium text-gray-900 ">Jefe Inmediato</label>
-                <select id="area" wire:model="id_jefe" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  ">
-                    <option value="">Jefe Inmediato</option>
-                    @foreach($jefes as $item)
-                        <option value="{{ $item->id }}">{{ $item->nombres }} {{ $item->apellidos }}</option>
-                    @endforeach
-                </select>
-                
-                @error('id_jefe')
-                    <p class="text-red-500 text-xs italic">{{ $message }}</p>                    
-                @enderror
-                
-            </div>
-           
         </x-slot>
         <x-slot name="footer">
-            <button wire:click="cancelar"  class="mr-2 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center ">
+            <button wire:click="cancelar" wire:loading.attr="disabled" class="mr-2 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center ">
                 Cancelar
             </button>
-            <button wire:click="update"  class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center ">
+            <button wire:click="update" wire:loading.attr="disabled" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center ">
                 Guardar
             </button>
         </x-slot>
-
     </x-dialog-modal>
-    
 </div>
  

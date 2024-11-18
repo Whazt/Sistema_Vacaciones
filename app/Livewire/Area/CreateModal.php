@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Area;
 
+use Livewire\Component;
 use App\Models\Area;
 use App\Http\Requests\AreaRequest;
-use Livewire\Component;
 
-class AreaCreateModal extends Component
+class CreateModal extends Component
 {
     public $open = false;
     public $nombre, $descripcion;
@@ -37,6 +37,6 @@ class AreaCreateModal extends Component
 
     public function render()
     {
-        return view('livewire.area-create-modal');
+        return view('livewire.area.create-modal');
     }
 }

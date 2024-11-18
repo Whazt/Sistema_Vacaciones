@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Empleado;
 
 use Livewire\Component;
 use App\Models\Empleado;
@@ -8,7 +8,7 @@ use App\Models\Cargo;
 use App\Models\Area;
 use App\Http\Requests\EmpleadoRequest;
 
-class EmpleadoCreateModal extends Component
+class CreateModal extends Component
 {
     public $id, $nombres, $apellidos, $correo, $telefono, $estado, $fecha_ingreso, $id_cargo, $dias_vacaciones_usados, $id_jefe;
     public $open = false;
@@ -79,6 +79,6 @@ class EmpleadoCreateModal extends Component
     {
         $areas = Area::all();
        
-        return view('livewire.empleado-create-modal', compact('areas'));
+        return view('livewire.empleado.create-modal', compact('areas'));
     }
 }

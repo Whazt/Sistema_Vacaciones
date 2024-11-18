@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Area;
 
 use Livewire\Component;
 use App\Models\Area;
@@ -8,7 +8,7 @@ use App\Http\Requests\AreaRequest;
 
 use function Termwind\render;
 
-class AreaShow extends Component
+class Show extends Component
 {
     public $id,$descripcion, $nombre;
     public $open_edit=false;
@@ -48,7 +48,7 @@ class AreaShow extends Component
     public function render()
     {
         $areas = Area::all();
-        return view('livewire.area-show', compact('areas'));
+        return view('livewire.area.show', compact('areas'));
     }
 
     public function delete(Area $area){

@@ -1,6 +1,6 @@
 <div>
     <div class="bg-slate-100 min-h-full">
-        @livewire('solicitud-create-modal')
+        @livewire('solicitud.create-modal')
 
         {{-- carga de registros  --}}
         <section class="container ">

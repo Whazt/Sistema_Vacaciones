@@ -3,7 +3,7 @@
         Cargos
     </x-slot>
 
-    @livewire('cargo-show')
+    @livewire('cargo.show')
 
 </x-app-layout>
 

@@ -6,6 +6,7 @@ use App\Http\Controllers\CargoController;
 use App\Http\Controllers\SolicitudController;
 use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\VacacionesController;
+use App\Http\Controllers\UsuarioController;
 use App\Models\Area;
 use App\Models\Cargo;
 
@@ -40,6 +41,9 @@ Route::middleware([
     //Ruta de Solicitudes
     Route::get('/solicitudes', [SolicitudController::class, 'index'])
         ->name('paginas.solicitudes');
+
+    Route::get('/usuarios', [UsuarioController::class, 'index'])
+        ->name('paginas.usuarios');
 
 });
 

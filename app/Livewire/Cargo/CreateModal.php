@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Cargo;
 
 use Livewire\Component;
 use App\Models\Area;
 use App\Models\Cargo;
 use App\Http\Requests\CargoRequest;
 
-class CargoCreateModal extends Component
+class CreateModal extends Component
 {
     public $nombre, $descripcion;
     public $open = false;
@@ -36,7 +36,7 @@ class CargoCreateModal extends Component
     public function render()
     {
         $areas = Area::all();
-        return view('livewire.cargo-create-modal', compact('areas'));
+        return view('livewire.cargo.create-modal', compact('areas'));
     }
 
 }

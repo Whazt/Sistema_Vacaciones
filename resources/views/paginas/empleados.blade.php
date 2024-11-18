@@ -6,7 +6,7 @@
 
     <x-slot name="slot">    
 
-        @livewire('empleado-show')
+        @livewire('empleado.show')
     </x-slot>
 
 </x-app-layout>

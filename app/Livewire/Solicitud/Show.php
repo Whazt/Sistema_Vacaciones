@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Solicitud;
 
 use App\Models\Solicitud;
 use App\Models\Empleado;
 use App\Http\Requests\SolicitudRequest;
 use Livewire\Component;
 
-class SolicitudShow extends Component
+class Show extends Component
 {
     public $id, $id_empleado, $fecha_inicio, $fecha_fin, $estado, $detalles, $aprobacion_jefe, $aprobacion_rh;
     public $open_edit=false;
@@ -54,6 +54,6 @@ class SolicitudShow extends Component
     {
         $solicitudes = Solicitud::all();
         $empleados = Empleado::all();
-        return view('livewire.solicitud-show', compact('solicitudes'), compact('empleados'));
+        return view('livewire.solicitud.show', compact('solicitudes'), compact('empleados'));
     }
 }

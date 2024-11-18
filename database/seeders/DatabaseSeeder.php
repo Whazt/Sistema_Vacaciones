@@ -19,7 +19,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        User::Create([
+            'name' => 'Juan Perez',
+            'email' => 'juanperez@gmail.com',
+            'password' => bcrypt('Admin123') // password
+            
+        ])->assignRole('admin');
+        User::factory(10)->create();
+ 
+        $this->call(RoleSeeder::class);
+
         $area = new Area([
             'nombre' => 'Mercadeo',
             'descripcion'=> 'Area de encargados de la mercadotecnia'    
@@ -60,8 +69,8 @@ class DatabaseSeeder extends Seeder
         $cargo->save();
 
         $empleado = new Empleado([
-            'nombres' => 'Juan',
-            'apellidos' => 'Perez',
+            'nombres' => 'Juan José',
+            'apellidos' => 'Arce de la Cruz',
             'correo' => 'juanperez@gmail.com',
             'id_cargo' => 1,
             'fecha_ingreso' => '2024-11-11',
@@ -75,9 +84,9 @@ class DatabaseSeeder extends Seeder
         $empleado->save();
 
         $empleado = new Empleado([
-            'nombres' => 'Juana',
-            'apellidos' => 'Pereza',
-            'correo' => 'juanapereza@gmail.com',
+            'nombres' => 'Juliana Matilde',
+            'apellidos' => 'Argüello Peralta',
+            'correo' => 'juliarg@gmail.com',
             'id_cargo' => 2,
             'fecha_ingreso' => '2024-11-11',
             'dias_vacaciones_usados' => 0,
@@ -92,7 +101,7 @@ class DatabaseSeeder extends Seeder
            // Creación de 5 registros para la tabla 'solicitudes'
            $empleados = [1, 2]; // Id de empleados disponibles
 
-           for ($i = 0; $i < 5; $i++) {
+           for ($i = 0; $i < 20 ; $i++) {
                $solicitud = new Solicitud([
                    'id_empleado' => $empleados[array_rand($empleados)], // Elige aleatoriamente entre los empleados 1 y 2
                    'fecha_inicio' => Carbon::now()->addDays($i)->toDateString(), // Fecha de inicio en los próximos días

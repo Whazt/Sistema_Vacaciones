@@ -6,7 +6,7 @@
 
     <x-slot name="slot">    
 
-        @livewire('solicitud-show')
+        @livewire('solicitud.show')
     </x-slot>
 
 </x-app-layout>

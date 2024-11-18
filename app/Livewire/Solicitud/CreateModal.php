@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Solicitud;
 
 use App\Models\Empleado;
 use Livewire\Component;
 use App\Models\Solicitud;
 use App\Http\Requests\SolicitudRequest;
 
-class SolicitudCreateModal extends Component
+class CreateModal extends Component
 {
 
     public $id, $id_empleado, $fecha_inicio, $fecha_fin, $estado, $detalles, $aprobacion_jefe, $aprobacion_rh;
@@ -49,6 +49,6 @@ class SolicitudCreateModal extends Component
     public function render()
     {
        $empleados = Empleado::all();
-        return view('livewire.solicitud-create-modal', compact('empleados'));
+        return view('livewire.solicitud.create-modal', compact('empleados'));
     }
 }

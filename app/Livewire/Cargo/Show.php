@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Cargo;
 
 use App\Models\Cargo;
 use Livewire\Component;
 use App\Models\Area;
 use App\Http\Requests\CargoRequest;
 
-class CargoShow extends Component
+class Show extends Component
 {
     public $id,$nombre,$descripcion,$id_area;
     public $open_edit=false;
@@ -17,7 +17,7 @@ class CargoShow extends Component
     public function render()
     {
         $cargos = Cargo::with('area')->get();
-        return view('livewire.cargo-show', compact('cargos'));
+        return view('livewire.cargo.show', compact('cargos'));
     }
 
     public function mount(){
