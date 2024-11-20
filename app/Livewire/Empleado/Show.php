@@ -21,6 +21,10 @@ class Show extends Component
     public function edit($idempleado)
     {
         $empleado = Empleado::findOrFail($idempleado);
+
+        $this->area_selected = $empleado->cargo->area->id;
+        
+
         $this->id = $empleado->id;
         $this->nombres = $empleado->nombres;
         $this->apellidos = $empleado->apellidos;
@@ -31,8 +35,9 @@ class Show extends Component
         $this->id_jefe = $empleado->id_jefe;
         $this->fecha_ingreso = $empleado->fecha_ingreso;
         $this->dias_vacaciones_usados = $empleado->dias_vacaciones_usados;
-        $this->area_selected = $empleado->cargo->area->id;
+        $this->loadCargosYEmpleados();
         $this->open_edit = true;
+       
     }
 
     public function update()
@@ -66,8 +71,8 @@ class Show extends Component
         $fechaIngreso = Carbon::parse($fechaIngreso); // Convertir a Carbon si no lo está
         $fechaActual = now();
 
-        $diasTrabajados = $fechaIngreso->diffInDays($fechaActual);
-        $tasaDiariaVacaciones = 15 / 182.5; // Asumiendo 15 días de vacaciones cada 6 meses (182.5 días)
+        $diasTrabajados = floor($fechaIngreso->diffInDays($fechaActual));
+        $tasaDiariaVacaciones = 30 / 365; // Asumiendo 15 días de vacaciones cada 6 meses (182.5 días)
         $vacacionesAcumuladas = $diasTrabajados * $tasaDiariaVacaciones;
         $vacacionesAcumuladas = round($vacacionesAcumuladas, 2);
 
@@ -80,11 +85,19 @@ class Show extends Component
     // metodos para cargar datos
     public function load_empleadosarea()
     {
-        // Obtener todos los empleados asociados a los cargos del área específica
+        // Verificar que area_selected tiene un valor válido
+        if (!$this->area_selected) {
+            return; // No hacer nada si no se ha seleccionado un área
+        }
+
+        // Obtener los empleados del área seleccionada, excluyendo al empleado actual
         $empleados = Empleado::whereHas('cargo', function ($query) {
             $query->where('id_area', $this->area_selected);
-        })->get();
-        // Guardar los empleados en la propiedad para usarlos en la vista o donde los necesites
+        })
+        ->where('id', '!=', $this->id) // Asegurarse de que no se incluya el propio empleado
+        ->get();
+
+        // Asignar los empleados encontrados a la propiedad $jefes
         $this->jefes = $empleados;
     }
 
@@ -103,6 +116,23 @@ class Show extends Component
     {
         $this->open_edit = false;
         $this->resetValidation();
+        $this->resetForm();
+    }
+
+    public function resetForm(){
+        $this->id = null;
+        $this->nombres =null;
+        $this->apellidos = null;
+        $this->correo = null;
+        $this->telefono =null;
+        $this->id_cargo = null;
+        $this->estado =null;
+        $this->id_jefe = null;
+        $this->fecha_ingreso = null;
+        $this->dias_vacaciones_usados = null;
+        $this->area_selected = null;
+        $this->jefes = [];
+        $this->cargos_por_area = [];
     }
 
     public function render()

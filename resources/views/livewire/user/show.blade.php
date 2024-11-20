@@ -7,7 +7,7 @@
 
             <div class="flex flex-col mt-6">
                 <div class=" -my-2 overflow-x-auto  ">
-                    <div class="lg:mx-[2%] md:mx-[2%] inline-block min-w-[95%] py-2 align-middle md:px-6 lg:px-8">	
+                    <div class="lg:mx-[1%] md:mx-[1%] inline-block min-w-[98%] py-2 align-middle md:px-2 lg:px-2">	
                         <div class="overflow-hidden border border-gray-700 md:rounded-lg">
                             <table class="min-w-full divide-y  divide-gray-700">
                                 <thead class="bg-gray-800">
@@ -34,6 +34,15 @@
                                         <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                             <button class="flex items-center gap-x-2">
                                                 <span>Correo</span>
+        
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
+                                                </svg>
+                                            </button>
+                                        </th>
+                                        <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                            <button class="flex items-center gap-x-2">
+                                                <span>Rol</span>
         
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
                                                     <path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
@@ -72,6 +81,12 @@
                                                     <h2 class="text-sm font-normal ">{{$item->email}}</h2>
                                                 </div>
                                             </td>
+                                            <td class="px-1 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
+                                                <div class="inline-flex items-center px-3 py-1 rounded-full  ">
+            
+                                                    <h2 class="text-sm font-normal ">{{$item->roles->pluck('name')->join(', ')}}</h2>
+                                                </div>
+                                            </td>
                           
                                            
                                             <td class="px-4 py-4 text-sm whitespace-nowrap">
@@ -102,47 +117,50 @@
     </div>
 
     {{-- modal de edicion --}}
-    {{-- <x-dialog-modal wire:model="open_edit">
+    <x-dialog-modal wire:model="open_edit">
         <x-slot name="title">
-            Editar Área
+            Editar Ususario
         </x-slot>
-        <br/>
         <x-slot name="content">
             <div class="mb-5">
-                <label for="nombre" class="block mb-2 text-sm font-medium text-gray-900 ">Nombre</label>
-                <input wire:model="nombre" type="nombre" id="nombre" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "  required />
-                @error('nombre')
-                    <x-input-error :message="$errors->first('nombre')" />
+                <label for="nombres" class="block mb-2 text-sm font-medium text-gray-900 ">Nombres</label>
+                <input wire:model="name" type="nombre" id="nombres" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  " required />
+                @error('name')
+                    <p class="text-red-500 text-xs italic">{{ $message }}</p>
                 @enderror
             </div>
             <div class="mb-5">
-                <label for="descripcion" class="block mb-2 text-sm font-medium text-gray-900 ">Descripción</label>
-                <textarea wire:model="descripcion" type="descripcion" id="descripcion" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  " required /></textarea>
-                @error('descripcion')
-                    <x-input-error :message="$errors->first('descripcion')" />
+                <label for="correo" class="block mb-2 text-sm font-medium text-gray-900 ">Correo</label>
+                <input wire:model="email" type="email" id="correo" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  " required />
+                @error('email')
+                    <p class="text-red-500 text-xs italic">{{ $message }}</p>
                 @enderror
-            </div>  
+            </div> 
+
             <div class="mb-5">
-                <label for="nombre" class="block mb-2 text-sm font-medium text-gray-900 ">Área</label>
-                <select id="area" wire:model="id_area" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  ">
-                    <option value="">Selecciona un área</option>
-                    @foreach($areas as $area)
-                        <option value="{{ $area->id }}">{{ $area->nombre }}</option>
-                    @endforeach
+                <label for="roles" class="block mb-2 text-sm font-medium text-gray-900 ">Empleado</label>
+                <select id="roles" wire:model="role" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  " required>
+                    <option value="Empleado">Empleado</option>
+                    <option value="Admin">Admin</option>
+                    <option value="Jefe">Jefe</option>
+                    <option value="RH">Recursos Humanos</option>
+
                 </select>
-                @error('id_area')
-                    <x-input-error :message="$errors->first('id_area')" />
+                @error('role')
+                    <p class="text-red-500 text-xs italic">{{ $message }}</p>                    
                 @enderror
             </div>
         </x-slot>
+
         <x-slot name="footer">
-            <button wire:click="cancelar" wire:loading.attr="disabled" class="mr-2 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center ">
+            <button wire:click="cancelar"  class="mr-2 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center ">
                 Cancelar
             </button>
-            <button wire:click="update" wire:loading.attr="disabled" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center ">
+            <button wire:click="update"  class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center ">
                 Guardar
             </button>
         </x-slot>
-    </x-dialog-modal> --}}
+
+    </x-dialog-modal>
 </div>
  

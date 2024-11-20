@@ -3,12 +3,12 @@
 namespace App\Livewire\Solicitud;
 
 use App\Models\Solicitud;
-use App\Models\Empleado;
+
 use App\Http\Requests\SolicitudRequest;
 use Livewire\Component;
 
 
-class Show extends Component
+class ShowMisSolicitudes extends Component
 {
     public $id, $id_empleado, $fecha_inicio, $fecha_fin, $estado, $detalles, $aprobacion_jefe, $aprobacion_rh;
     public $open_edit=false;
@@ -54,28 +54,17 @@ class Show extends Component
     /** @var \App\Models\User */
     public function loadByUser(){
         $user = auth()->user();
+
+        return Solicitud::whereHas('empleado', function ($query) use ($user){
+            $query->where('correo', $user->mail);
+        })->get();
         
-        if ($user->hasRole('Admin') || $user->hasRole('RH')) 
-        {
-            return Solicitud::all(); // Todas las solicitudes
-        }
-        else if ($user->hasRole('Jefe')) 
-        {   
-           return Solicitud::all(); // Las solicitudes del area del jefe
-        }
-        else
-        {
-           return Solicitud::whereHas('empleado', function ($query) use ($user){
-                $query->where('correo', $user->mail);
-            })->get();
-        } 
     }
 
 
     public function render()
     {
         $solicitudes = $this->loadByUser();
-        $empleados = Empleado::all();
-        return view('livewire.solicitud.show', compact('solicitudes'), compact('empleados'));
+        return view('livewire.solicitud.show-mis-solicitudes', compact('solicitudes'));
     }
 }

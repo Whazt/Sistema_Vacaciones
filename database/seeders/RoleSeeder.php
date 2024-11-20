@@ -21,7 +21,8 @@ class RoleSeeder extends Seeder
         $role4 = Role::create(['name' => 'RH']);
 
         Permission::create(['name' => 'vacaciones'])->syncRoles([$role1, $role2, $role3, $role4]);
-        Permission::create(['name' => 'ver-solicitudes'])->syncRoles([$role1, $role2, $role3, $role4]);
+        Permission::create(['name' => 'ver-solicitudes'])->syncRoles([$role1, $role2, $role4]);
+        Permission::create(['name' => 'ver-mis-solicitudes'])->syncRoles([$role2, $role3, $role4]);
         Permission::create(['name' => 'crear-solicitudes'])->syncRoles([$role1, $role2, $role3, $role4]);
         Permission::create(['name'=> 'editar-solicitudes'])->syncRoles([$role1, $role2, $role3, $role4]);
         Permission::create(['name'=> 'borrar-solicitudes'])->syncRoles([$role1, $role2, $role3, $role4]);
@@ -41,10 +42,10 @@ class RoleSeeder extends Seeder
         Permission::create(['name'=> 'editar-Areas'])->syncRoles([$role1, $role4]);
         Permission::create(['name'=> 'borrar-Areas'])->syncRoles([$role1, $role4]); 
 
-        Permission::create(['name' => 'ver-Usuarios'])->assignRole($role1);
-        Permission::create(['name' => 'crear-Usuarios'])->assignRole($role1);
-        Permission::create(['name'=> 'editar-Usuarios'])->assignRole($role1);
-        Permission::create(['name'=> 'borrar-Usuarios'])->assignRole($role1);    
+        Permission::create(['name' => 'ver-Usuarios'])->assignRole([$role1, $role4]);
+        Permission::create(['name' => 'crear-Usuarios'])->assignRole([$role1, $role4]);
+        Permission::create(['name'=> 'editar-Usuarios'])->assignRole([$role1, $role4]);
+        Permission::create(['name'=> 'borrar-Usuarios'])->assignRole([$role1, $role4]);    
         
 
     }

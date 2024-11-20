@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('nombres');
             $table->string('apellidos');
             $table->string('correo')->unique();
-            $table->integer('id_cargo');
+            $table->integer('id_cargo')->nullable();
             $table->date('fecha_ingreso');
             $table->integer('dias_vacaciones_usados')->nullable();
             $table->string('telefono');

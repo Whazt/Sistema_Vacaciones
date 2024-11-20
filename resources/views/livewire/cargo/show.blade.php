@@ -7,7 +7,7 @@
 
             <div class="flex flex-col mt-6">
                 <div class=" -my-2 overflow-x-auto  ">
-                    <div class="lg:mx-[2%] md:mx-[2%] inline-block min-w-[95%] py-2 align-middle md:px-6 lg:px-8">	
+                    <div class="lg:mx-[1%] md:mx-[1%] inline-block min-w-[98%] py-2 align-middle md:px-2 lg:px-2">	
                         <div class="overflow-hidden border border-gray-700 md:rounded-lg">
                             <table class="min-w-full divide-y  divide-gray-700">
                                 <thead class="bg-gray-800">
@@ -127,14 +127,14 @@
                 <label for="nombre" class="block mb-2 text-sm font-medium text-gray-900 ">Nombre</label>
                 <input wire:model="nombre" type="nombre" id="nombre" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "  required />
                 @error('nombre')
-                    <x-input-error :message="$errors->first('nombre')" />
+                    <p class="text-red-500 text-xs italic">{{ $message }}</p>
                 @enderror
             </div>
             <div class="mb-5">
                 <label for="descripcion" class="block mb-2 text-sm font-medium text-gray-900 ">Descripción</label>
                 <textarea wire:model="descripcion" type="descripcion" id="descripcion" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  " required /></textarea>
                 @error('descripcion')
-                    <x-input-error :message="$errors->first('descripcion')" />
+                    <p class="text-red-500 text-xs italic">{{ $message }}</p>
                 @enderror
             </div>  
             <div class="mb-5">
@@ -146,7 +146,7 @@
                     @endforeach
                 </select>
                 @error('id_area')
-                    <x-input-error :message="$errors->first('id_area')" />
+                 <p class="text-red-500 text-xs italic">{{ $message }}</p>
                 @enderror
             </div>
         </x-slot>

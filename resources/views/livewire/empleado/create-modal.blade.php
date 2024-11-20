@@ -17,14 +17,14 @@
                 <label for="nombres" class="block mb-2 text-sm font-medium text-gray-900 ">Nombres</label>
                 <input wire:model="nombres" type="nombre" id="nombres" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  " required />
                 @error('nombres')
-                    <x-input-error :message="$errors->first('nombres')" />
+                    <p class="text-red-500 text-xs italic">{{ $message }}</p>
                 @enderror
             </div>
             <div class="mb-5">
                 <label for="apellido" class="block mb-2 text-sm font-medium text-gray-900 ">Apellidos</label>
                 <input wire:model="apellidos" type="nombre" id="apellido" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  " required />
                 @error('apellidos')
-                    <x-input-error :message="$errors->first('apellidos')" />
+                    <p class="text-red-500 text-xs italic">{{ $message }}</p>
                 @enderror
             </div>
 
@@ -32,28 +32,28 @@
                 <label for="correo" class="block mb-2 text-sm font-medium text-gray-900 ">Correo</label>
                 <input wire:model="correo" type="email" id="correo" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  " required />
                 @error('correo')
-                    <x-input-error :message="$errors->first('correo')" />
+                    <p class="text-red-500 text-xs italic">{{ $message }}</p>
                 @enderror
             </div>
             <div class="mb-5">
                 <label for="fecha" class="block mb-2 text-sm font-medium text-gray-900 ">Fecha de Ingreso</label>
                 <input wire:model="fecha_ingreso" type="date" id="fecha" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  " required />
                 @error('fecha_ingreso')
-                    <x-input-error :message="$errors->first('fecha_ingreso')" />
+                    <p class="text-red-500 text-xs italic">{{ $message }}</p>
                 @enderror
             </div>
             <div class="mb-5">
                 <label for="telefono" class="block mb-2 text-sm font-medium text-gray-900 ">Días de vacaciones usados</label>
                 <input wire:model="dias_vacaciones_usados" type="number" id="telefono" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  " required />
                 @error('dias_vacaciones_usados')
-                    <x-input-error :message="$errors->first('telefono')" /> 
+                    <p class="text-red-500 text-xs italic">{{ $message }}</p> 
                 @enderror
             </div>
             <div class="mb-5">
                 <label for="telefono" class="block mb-2 text-sm font-medium text-gray-900 ">Télefono</label>
                 <input wire:model="telefono" type="number" id="telefono" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  " required />
                 @error('telefono')
-                    <x-input-error :message="$errors->first('telefono')" /> 
+                    <p class="text-red-500 text-xs italic">{{ $message }}</p> 
                 @enderror
             </div>
 
@@ -78,7 +78,7 @@
                 </select>
                 
                 @error('id_cargo')
-                    <x-input-error :message="$errors->first('id_cargo')" />
+                    <p class="text-red-500 text-xs italic">{{ $message }}</p>
                 @enderror
                 
             </div>
@@ -91,7 +91,7 @@
                     @endforeach
                 </select>
                 @error('id_jefe')
-                    <x-input-error :message="$errors->first('id_jefe')" />
+                    <p class="text-red-500 text-xs italic">{{ $message }}</p>
                 @enderror
                 
             </div>

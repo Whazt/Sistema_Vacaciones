@@ -10,4 +10,9 @@ class SolicitudController extends Controller
     {
         return view('paginas.solicitudes');
     }
+
+    public function MisSolicitudes()
+    {
+        return view('paginas.misSolicitudes');
+    }
 }

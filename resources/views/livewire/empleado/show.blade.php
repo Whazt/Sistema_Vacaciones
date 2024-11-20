@@ -7,7 +7,7 @@
 
             <div class="flex flex-col mt-6">
                 <div class=" -my-2 overflow-x-auto  ">
-                    <div class="lg:mx-[2%] md:mx-[2%] inline-block min-w-[95%] py-2 align-middle md:px-6 lg:px-8">	
+                    <div class="lg:mx-[1%] md:mx-[1%] inline-block min-w-[98%] py-2 align-middle md:px-2 lg:px-2">	
                         <div class="overflow-hidden border border-gray-700 md:rounded-lg">
                             <table class="min-w-full divide-y  divide-gray-700">
                                 <thead class="bg-gray-800">
@@ -103,7 +103,7 @@
                                             <td class="px-1 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
                                                 <div class="inline-flex items-center px-3 py-1 rounded-full gap-x-2  ">
             
-                                                    <h2 class="text-sm font-normal ">{{$item->cargo->nombre}}</h2>
+                                                    <h2 class="text-sm font-normal ">{{optional($item->cargo)->nombre ?? 'No Asignado'}}</h2>
                                                 </div>
                                             </td>
                                             <td class="px-1 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
@@ -147,7 +147,7 @@
     </div>
 
     {{-- modal de edicion --}}
-    <x-dialog-modal wire:model="open_edit">
+    <x-dialog-modal wire:model="open_edit" wire:click.away="cancelar">
         <x-slot name="title">
            
             Editar Empleado
@@ -192,7 +192,7 @@
 
             
             <div class="mb-5">
-                <label for="nombre" class="block mb-2 text-sm font-medium text-gray-900 ">Área</label>
+                <label for="area" class="block mb-2 text-sm font-medium text-gray-900 ">Área</label>
                 <select id="area" wire:model="area_selected" wire:change="loadCargosYEmpleados()" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  ">
                     <option value="">Selecciona un Área</option>
                     @foreach($areas as $area)
@@ -205,10 +205,11 @@
                 <label for="nombre" class="block mb-2 text-sm font-medium text-gray-900 ">Cargo</label>
                 <select id="area" wire:model="id_cargo" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  ">
                     <option value="">Selecciona un Cargo</option>
-                    @foreach($cargos_por_area as $cargo_area)
-                        <option value="{{ $cargo_area->id }}">{{ $cargo_area->nombre }}</option>
+                    @foreach($cargos_por_area as $cargo)
+                        <option value="{{ $cargo->id }}" >{{ $cargo->nombre }}</option>
                     @endforeach
                 </select>
+                <p> {{$id_cargo}} </p>
                 @error('id_cargo')
                     <p class="text-red-500 text-xs italic">{{ $message }}</p>                    
                 @enderror
@@ -221,7 +222,7 @@
                         <option value="{{ $item->id }}">{{ $item->nombres }} {{ $item->apellidos }}</option>
                     @endforeach
                 </select>
-                
+                <p> {{$id_jefe}} </p>
                 @error('id_jefe')
                     <p class="text-red-500 text-xs italic">{{ $message }}</p>                    
                 @enderror

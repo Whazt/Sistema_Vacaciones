@@ -10,9 +10,19 @@ use function Laravel\Prompts\select;
 class VacacionesShow extends Component
 {
 
+    public function cargarSolicitudes(){
+        $user = auth()->user();
+
+        $vacaciones = Solicitud::where('estado', 'Aprobado')
+        ->whereHas('empleado', function($query) use ($user) {
+            $query->where('correo', $user->email);
+        })->get();
+
+        return $vacaciones;
+    }
     public function render()
     {
-        $vacaciones = Solicitud::where('estado', 'Aprobado')->get();
+        $vacaciones = $this->cargarSolicitudes();
         return view('livewire.vacaciones-show', compact('vacaciones') );
     }
 }

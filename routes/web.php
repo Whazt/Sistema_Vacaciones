@@ -19,30 +19,35 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
+    
     Route::get('/', function () {
-        return view('paginas.areas');
+        return view('paginas.vacaciones');
     })->name('home');
 
-    Route::get('/areas', [AreaController::class, 'index'])
+
+    Route::get('/areas', [AreaController::class, 'index'])->middleware('can:ver-Areas')
     ->name('paginas.areas');
 
     //Ruta de Cargos
-    Route::get('/cargos', [CargoController::class, 'index'])
+    Route::get('/cargos', [CargoController::class, 'index'])->middleware('can:ver-Cargos')
         ->name('paginas.cargos');
 
     //Ruta de Emplead
-    Route::get('/empleados', [EmpleadoController::class, 'index'])
+    Route::get('/empleados', [EmpleadoController::class, 'index'])->middleware('can:ver-Empleados')
         ->name('paginas.empleados');
 
     //Ruta de Vacaciones
-    Route::get('/vacaciones', [VacacionesController::class, 'index'])
+    Route::get('/vacaciones', [VacacionesController::class, 'index'])->middleware('can:vacaciones')
         ->name('paginas.vacaciones');
 
     //Ruta de Solicitudes
-    Route::get('/solicitudes', [SolicitudController::class, 'index'])
+    Route::get('/solicitudes', [SolicitudController::class, 'index'])->middleware('can:ver-solicitudes')
         ->name('paginas.solicitudes');
 
-    Route::get('/usuarios', [UsuarioController::class, 'index'])
+    Route::get('/misSolicitudes', [SolicitudController::class, 'MisSolicitudes'])->middleware('can:ver-mis-solicitudes')
+        ->name('paginas.misSolicitudes');
+    
+    Route::get('/usuarios', [UsuarioController::class, 'index'])->middleware('can:ver-Usuarios')
         ->name('paginas.usuarios');
 
 });

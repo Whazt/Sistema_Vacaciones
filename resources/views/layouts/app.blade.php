@@ -28,7 +28,7 @@
                 {{$titulo}}
             </x-header>
             <!-- Page Content -->
-            <main class="min-h-auto lg:ml-[14rem] md:ml-[14rem] ml-0  ">
+            <main class="min-h-auto lg:ml-[13rem] md:ml-[13rem] ml-0  ">
                 @livewire('sidebar')
                 {{ $slot }}
             </main>
