@@ -25,7 +25,6 @@ class UserRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:255'],
             'email' => 'required|string|email|max:255|unique:users,email,'.$idUsuario,
-            'password' => 'required|string|min:8',
             'role' => 'required|string|max:255',
         ];
     }
@@ -40,9 +39,6 @@ class UserRequest extends FormRequest
             'email.string' => 'El campo Correo debe ser de tipo string',
             'email.email' => 'El campo Correo debe ser un correo electrónico válido',
             'email.max' => 'El campo Correo debe tener un máximo de 255 caracteres',
-            'password.required' => 'El campo Contraseña es obligatorio',
-            'password.string' => 'El campo Contraseña debe ser de tipo string',
-            'password.min' => 'El campo Contraseña debe tener un mínimo de 8 caracteres',
             'role.required' => 'El campo Rol es obligatorio',
             'role.string' => 'El campo Rol debe ser de tipo string',
             'role.max' => 'El campo Rol debe tener un máximo de 255 caracteres',

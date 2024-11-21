@@ -135,13 +135,36 @@ class Show extends Component
         $this->cargos_por_area = [];
     }
 
+    public function cargarEmpleados(){
+        $user = auth()->user();
+
+        $empleados = null;
+
+        if($user->hasRole('Jefe'))
+        {
+            $empl= Empleado::where('correo' , $user->email )->first();
+            $empleados = Empleado::where('id_jefe', $empl->id)->get()->map(function($empleado) {
+                $empleado->dias_disponibles = $this->calcularDiasVacacionesDisponibles($empleado->fecha_ingreso, $empleado->dias_vacaciones_usados);
+                return $empleado;
+            }); 
+        }
+        else
+        {
+            $empleados = Empleado::all()->map(function($empleado) {
+                $empleado->dias_disponibles = $this->calcularDiasVacacionesDisponibles($empleado->fecha_ingreso, $empleado->dias_vacaciones_usados);
+                return $empleado;
+            }); 
+        }
+
+        return $empleados;
+    }
     public function render()
     {
-        $empleados = Empleado::all()->map(function($empleado) {
-            $empleado->dias_disponibles = $this->calcularDiasVacacionesDisponibles($empleado->fecha_ingreso, $empleado->dias_vacaciones_usados);
-            return $empleado;
-        }); 
-
+        // $empleados = Empleado::all()->map(function($empleado) {
+        //     $empleado->dias_disponibles = $this->calcularDiasVacacionesDisponibles($empleado->fecha_ingreso, $empleado->dias_vacaciones_usados);
+        //     return $empleado;
+        // }); 
+        $empleados = $this->cargarEmpleados();
         $areas = Area::all();
 
         return view('livewire.empleado.show', compact('empleados'), compact('areas'));

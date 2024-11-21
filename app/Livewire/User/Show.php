@@ -20,7 +20,6 @@ class Show extends Component
         $this->name = $user->name;
         $this->email = $user->email;
         $this->role = $user->roles->pluck('name')->join(', ');
-        $this->password = $user->password;
         $this->open_edit = true;
     }
 
@@ -39,7 +38,7 @@ class Show extends Component
         [
             'name' => $validatedData['name'],
             'email' => $validatedData['email'],
-            'password' => Hash::make($validatedData['password']),
+            
                 
         ]);
         $user->syncRoles([$validatedData['role']]);

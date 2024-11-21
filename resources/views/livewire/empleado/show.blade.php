@@ -1,6 +1,8 @@
 <div>
     <div class="bg-slate-100 min-h-full">
-        @livewire('empleado.create-modal')
+        @can('crear-Empleados')
+          @livewire('empleado.create-modal')
+        @endcan
 
         {{-- carga de registros  --}}
         <section class="container ">
@@ -68,9 +70,11 @@
                                             </button>
                                         </th>
         
-                                        <th scope="col" class="relative py-3.5 px-4">
-                                            <span class="sr-only">Edit</span>
-                                        </th>
+                                        @can('editar-Empleados')
+                                            <th scope="col" class="relative py-3.5 px-4">
+                                                <span class="sr-only">Edit</span>
+                                            </th>
+                                        @endcan
                                     </tr>
                                 </thead>
                                 <tbody class="bg-white divide-y divide-gray-200 ">
@@ -118,7 +122,7 @@
                                                     <h2 class="text-sm font-normal ">{{$item->dias_disponibles}}</h2>
                                                 </div>
                                             </td>
-                                            
+                                            @can('editar-Empleados')
                                             <td class="px-4 py-4 text-sm whitespace-nowrap">
                                                 <div class="flex items-center gap-x-6">
                                                     <button wire:click="edit({{ $item->id }})" class="text-gray-500 transition-colors duration-200  hover:text-yellow-500 focus:outline-none">
@@ -133,6 +137,7 @@
                                                     </button>
                                                 </div>
                                             </td>
+                                            @endcan
                                         </tr>
                                     @endforeach
                                 </tbody>
