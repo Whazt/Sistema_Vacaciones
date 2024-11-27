@@ -7,18 +7,24 @@
             Crear Nueva Solicitud
         </x-slot>
         <x-slot name="content">
-            <div class="mb-5">
-                <label for="empleados" class="block mb-2 text-sm font-medium text-gray-900 ">Empleado</label>
-                <select id="empleados" wire:model="id_empleado" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  " required>
-                    <option value="">Empleado</option>
-                    @foreach($empleados as $item)
-                        <option value="{{ $item->id }}">{{ $item->nombres }} {{ $item->apellidos }}</option>
-                    @endforeach
-                </select>
-                @error('id_empleado')
-                    <p class="text-red-500 text-xs italic">{{ $message }}</p>                    
-                @enderror
-            </div>
+            @if(!(auth()->user()->hasRole("Empleado") || (auth()->user()->hasRole("Jefe"))))
+                <div class="mb-5">
+                    <label for="empleados" class="block mb-2 text-sm font-medium text-gray-900 ">Empleado</label>
+                    <select id="empleados" wire:model="id_empleado" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  " required>
+                        <option value="">Empleado</option>
+                        @foreach($empleados as $item)
+                            <option value="{{ $item->id }}">{{ $item->nombres }} {{ $item->apellidos }}</option>
+                        @endforeach
+                    </select>
+                    @error('id_empleado')
+                        <p class="text-red-500 text-xs italic">{{ $message }}</p>                    
+                    @enderror
+                </div>  
+            @endif
+            @error('id_empleado')
+                <p class="text-red-500 text-xs italic">{{ $message }}</p>                    
+            @enderror
+
             <div class="mb-5">
                 <label for="fechainicio" class="block mb-2 text-sm font-medium text-gray-900 ">Fecha Inicio</label>
                 <input wire:model="fecha_inicio" type="date" id="fechainicio" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  " required />
@@ -34,16 +40,18 @@
                     <p class="text-red-500 text-xs italic">{{ $message }}</p>                    
                 @enderror
             </div>
-            <div class="mb-5">
-                <label for="estado" class="block mb-2 text-sm font-medium text-gray-900 ">Estado</label>
-                <select id="estado" wire:model="estado"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  ">
-                    <option value="">Selecciona un Estado</option>
-                    <option value="pendiente">Pendiente</option>
-                    <option value="Aprobado">Aprobado</option>
-                    <option value="Rechazado">Rechazado</option>
-                 
-                </select>
-            </div>
+
+            @if(!(auth()->user()->hasRole("Empleado") || (auth()->user()->hasRole("Jefe"))))
+                <div class="mb-5">
+                    <label for="estado" class="block mb-2 text-sm font-medium text-gray-900 ">Estado</label>
+                    <select id="estado" wire:model="estado"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  ">
+                        <option value="pendiente">Pendiente</option>
+                        <option value="Aprobado">Aprobado</option>
+                        <option value="Rechazado">Rechazado</option>
+                    
+                    </select>
+                </div>
+            @endif
             <div class="mb-5">
                 <label for="detalle" class="block mb-2 text-sm font-medium text-gray-900 ">Detalles</label>
                 <textarea wire:model="detalles" type="text" id="detalle" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  " required ></textarea>
@@ -51,8 +59,8 @@
                     <p class="text-red-500 text-xs italic">{{ $message }}</p>                    
                 @enderror
             </div> 
-           
         </x-slot>
+        
         <x-slot name="footer">
             <button wire:click="cancelar"  class="mr-2 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center ">
                 Cancelar

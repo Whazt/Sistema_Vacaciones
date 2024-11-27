@@ -9,7 +9,7 @@ use Livewire\Component;
 
 class CreateModal extends Component
 {
-    public $name, $email, $role, $password='#Password123';
+    public $name, $email, $role='Empleado', $password='#Password123';
     public $open = false;
     
     public function store()

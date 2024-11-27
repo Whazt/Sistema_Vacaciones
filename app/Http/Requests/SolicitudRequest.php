@@ -23,9 +23,9 @@ class SolicitudRequest extends FormRequest
     {
         $rules = [
             'id_empleado' => 'required|integer',
-            'fecha_inicio' => 'required|date',
+            'fecha_inicio' => 'required|date  ',
             'fecha_fin' => 'required|date|after_or_equal:fecha_inicio',
-            'estado' => 'string|max:255',
+            'estado' => 'string|max:255|nullable',
             'detalles' => 'required|string|max:255',
             'aprobacion_jefe' => 'date|before:fecha_inicio|nullable',
             'aprobacion_rh' => 'date|before:fecha_inicio|nullable',

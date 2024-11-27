@@ -10,11 +10,14 @@ use App\Http\Requests\SolicitudRequest;
 class CreateModal extends Component
 {
 
-    public $id, $id_empleado, $fecha_inicio, $fecha_fin, $estado, $detalles, $aprobacion_jefe, $aprobacion_rh;
+    public $id, $id_empleado, $fecha_inicio, $fecha_fin, $estado = "pendiente", $detalles, $aprobacion_jefe, $aprobacion_rh;
     public $open = false;
 
     public function store()
     {
+        if( auth()->user()->hasRole("Empleado") || auth()->user()->hasRole("Jefe")){
+            $this->id_empleado = auth()->user()->empleado->id;
+        }
         $request = new SolicitudRequest();
         // Validar los datos usando las reglas y mensajes de la instancia
         $validatedData = $this->validate(

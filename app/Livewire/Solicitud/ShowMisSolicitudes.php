@@ -51,12 +51,11 @@ class ShowMisSolicitudes extends Component
         $solicitud->delete();
     }
 
-    /** @var \App\Models\User */
     public function loadByUser(){
         $user = auth()->user();
 
         return Solicitud::whereHas('empleado', function ($query) use ($user){
-            $query->where('correo', $user->mail);
+            $query->where('correo', $user->email);
         })->get();
         
     }
