@@ -71,6 +71,10 @@ class Show extends Component
         } 
     }
 
+    public function search()
+    {   
+        
+    }
 
     public function render()
     {
