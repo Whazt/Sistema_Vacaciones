@@ -55,7 +55,6 @@ class Show extends Component
     {
         $this->resetValidation();
         $this->open_edit = false;
-        
     }
 
     public function resetPassword(){

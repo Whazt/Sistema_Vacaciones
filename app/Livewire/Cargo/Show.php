@@ -18,7 +18,7 @@ class Show extends Component
     {
         $cargos = Cargo::with('area')->get();
         return view('livewire.cargo.show', compact('cargos'));
-    }
+    } 
 
     public function mount(){
         $this->areas = Area::all();
