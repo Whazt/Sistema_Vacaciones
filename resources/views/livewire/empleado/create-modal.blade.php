@@ -82,20 +82,36 @@
                 @enderror
                 
             </div>
-            <div class="mb-5">
-                <label for="nombre" class="block mb-2 text-sm font-medium text-gray-900 ">Jefe Inmediato</label>
-                <select id="area" wire:model="id_jefe" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  ">
-                    <option value="">Jefe Inmediato</option>
-                    @foreach($jefes as $item)
-                        <option value="{{ $item->id }}">{{ $item->nombres }} {{ $item->apellidos }}</option>
-                    @endforeach
-                </select>
-                @error('id_jefe')
-                    <p class="text-red-500 text-xs italic">{{ $message }}</p>
-                @enderror
-                
-            </div>
            
+            <div class="mb-5" x-data="{ show: false }">
+                <label for="nombre" class="block mb-2 text-sm font-medium text-gray-900">Jefe Inmediato</label>
+                
+                <!-- Input para búsqueda -->
+                <input type="text" 
+                       wire:model.live="searchEmp"
+                       @focus="show = true"
+                       @click.away="show = false"
+                       @input="show = true"
+                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                       placeholder="Buscar jefe inmediato...">
+            
+                <!-- Select dinámico -->
+                <div x-show="show" class="relative mt-2">
+                    <ul class="absolute z-10 bg-white border border-gray-300 w-full rounded-lg shadow-lg">
+                        @foreach($jefes as $item)
+                            <li class="p-2 cursor-pointer hover:bg-gray-200" 
+                                @click="$wire.set('id_jefe', '{{ $item->id }}'); $wire.set('searchEmp', '{{ $item->nombres }} {{ $item->apellidos }}'); show = false;">
+                                {{ $item->nombres }} {{ $item->apellidos }}
+                            </li>
+                        @endforeach
+                        @if($jefes->isEmpty())
+                            <li class="p-2 text-gray-500">No se encontraron resultados</li>
+                        @endif
+                    </ul>
+                </div>
+            </div>
+            
+            
         </x-slot>
         <x-slot name="footer">
             <button wire:click="cancelar"  class="mr-2 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center ">

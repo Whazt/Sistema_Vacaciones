@@ -13,19 +13,16 @@ class CreateModal extends Component
     public $id, $nombres, $apellidos, $correo, $telefono, $estado, $fecha_ingreso, $id_cargo, $dias_vacaciones_usados, $id_jefe;
     public $open = false;
     public $cargos_por_area = [], $jefes = [];
-    public $area_selected;
+    public $area_selected, $searchEmp;
     protected $listeners = ['actrender' => 'render'];
 
-
-    public function load_empleadosarea()
+    public function load_empleados()
     {
-        // Obtener todos los empleados asociados a los cargos del área específica
-        $empleados = Empleado::whereHas('cargo', function ($query) {
-            $query->where('id_area', $this->area_selected);
-        })->get();
-        // Guardar los empleados en la propiedad para usarlos en la vista o donde los necesites
+        $empleados = Empleado::where('nombres', 'like', '%'.$this->searchEmp.'%')
+            ->orWhere('apellidos', 'like', '%'.$this->searchEmp.'%')
+            ->get();
         $this->jefes = $empleados;
-    }
+    }   
 
     public function load_cargos()
     {
@@ -37,6 +34,7 @@ class CreateModal extends Component
         $this->load_cargos();
         $this->load_empleadosarea();
     }
+
     public function store()
     {
         $request = new EmpleadoRequest();
@@ -69,16 +67,19 @@ class CreateModal extends Component
         $this->area_selected = null;
         $this->cargos_por_area = [];
     }
+
     public function cancelar()
     {
         $this->resetform();
         $this->open = false;
         $this->resetValidation();
     }
+
     public function render()
     {
         $areas = Area::all();
+        $jefes = $this->load_empleados();
        
-        return view('livewire.empleado.create-modal', compact('areas'));
+        return view('livewire.empleado.create-modal', compact('areas'), compact('jefes'));
     }
 }

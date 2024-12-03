@@ -15,7 +15,7 @@ class Show extends Component
     use WithPagination;
     public $id, $nombres, $apellidos, $correo, $telefono, $id_cargo, $estado, $fecha_ingreso, $dias_vacaciones_usados, $id_jefe;
     public $open_edit = false;
-    public $area_selected, $search;
+    public $area_selected, $search, $selectedName = "";
     public $cargos_por_area = [], $jefes = [];
     protected $listeners = ['actrender' => 'render'];
 
@@ -25,7 +25,6 @@ class Show extends Component
         $empleado = Empleado::findOrFail($idempleado);
 
         $this->area_selected = $empleado->cargo->area->id;
-        
 
         $this->id = $empleado->id;
         $this->nombres = $empleado->nombres;
@@ -55,7 +54,6 @@ class Show extends Component
         );
         Empleado::where('id', $this->id)->update($validatedData);
 
-
         $this->open_edit = false;
     }
 
@@ -64,7 +62,6 @@ class Show extends Component
     public function delete(Empleado $empleado)
     {
         $empleado->delete();
-        
     }
 
     // metodos para CALCULAR DIAS DISPONIBLES
@@ -135,33 +132,12 @@ class Show extends Component
         $this->area_selected = null;
         $this->jefes = [];
         $this->cargos_por_area = [];
+        $this->search = null;
+        $this->selectedName = "";
     }
 
     public function cargarEmpleados(){
         $user = auth()->user();
-
-        // if($user->hasRole('Jefe'))
-        // {
-        //     $empl= Empleado::where('correo' , $user->email )->first();
-        //     $empleados = Empleado::where('id_jefe', $empl->id)
-        //     ->where('nombres', 'LIKE', '%'.$this->search.'%') 
-        //     ->orWhere('apellidos', 'LIKE', '%'.$this->search.'%')
-        //     ->map(function($empleado) {
-        //         $empleado->dias_disponibles = $this->calcularDiasVacacionesDisponibles($empleado->fecha_ingreso, $empleado->dias_vacaciones_usados);
-        //         return $empleado;
-        //     }) ;
-        // }
-        // else
-        // {
-        //     $empleados = Empleado::where('nombres', 'LIKE', '%'.$this->search.'%') 
-        //     ->orWhere('apellidos', 'LIKE', '%'.$this->search.'%')
-        //     ->map(function($empleado) {
-        //         $empleado->dias_disponibles = $this->calcularDiasVacacionesDisponibles($empleado->fecha_ingreso, $empleado->dias_vacaciones_usados);
-        //         return $empleado;
-        //     });
-        // }
-
-        // return $empleados;
         
         if ($user->hasRole('Jefe')) {
             $empl = Empleado::where('correo', $user->email)->first();
@@ -195,10 +171,6 @@ class Show extends Component
 
     public function render()
     {
-        // $empleados = Empleado::all()->map(function($empleado) {
-        //     $empleado->dias_disponibles = $this->calcularDiasVacacionesDisponibles($empleado->fecha_ingreso, $empleado->dias_vacaciones_usados);
-        //     return $empleado;
-        // }); 
         $empleados = $this->cargarEmpleados();
         $areas = Area::all();
 

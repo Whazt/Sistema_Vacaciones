@@ -6,11 +6,12 @@ use App\Models\Solicitud;
 
 use App\Http\Requests\SolicitudRequest;
 use Livewire\Component;
-
+use Livewire\WithPagination;
 
 class ShowMisSolicitudes extends Component
 {
-    public $id, $id_empleado, $fecha_inicio, $fecha_fin, $estado, $detalles, $aprobacion_jefe, $aprobacion_rh;
+    use WithPagination;
+    public $id, $id_empleado, $fecha_inicio, $fecha_fin, $estado, $detalles, $aprobacion_jefe, $aprobacion_rh, $search;
     public $open_edit=false;
 
 
@@ -55,11 +56,17 @@ class ShowMisSolicitudes extends Component
         $user = auth()->user();
 
         return Solicitud::whereHas('empleado', function ($query) use ($user){
-            $query->where('correo', $user->email);
-        })->get();
+            $query->where('correo', $user->email)
+                ->where('nombres', 'LIKE', '%'.$this->search.'%')
+                ->orWhere('apellidos', 'LIKE', '%'.$this->search.'%');
+        })
         
+        ->paginate(5);        
     }
 
+    public function updatingSearch(){
+        $this->resetPage();
+    }
 
     public function render()
     {

@@ -6,11 +6,12 @@ use App\Models\Solicitud;
 use App\Models\Empleado;
 use App\Http\Requests\SolicitudRequest;
 use Livewire\Component;
-
+use Livewire\WithPagination;
 
 class Show extends Component
 {
-    public $id, $id_empleado, $fecha_inicio, $fecha_fin, $estado, $detalles, $aprobacion_jefe, $aprobacion_rh;
+    use WithPagination;
+    public $id, $id_empleado, $fecha_inicio, $fecha_fin, $estado, $detalles, $aprobacion_jefe, $aprobacion_rh, $search;
     public $open_edit=false;
 
 
@@ -57,23 +58,30 @@ class Show extends Component
         
         if ($user->hasRole('Admin') || $user->hasRole('RH')) 
         {
-            return Solicitud::all(); // Todas las solicitudes
+            return Solicitud::whereHas('empleado', function ($query) {
+                $query->where('nombres', 'LIKE', '%' . $this->search . '%')
+                      ->orWhere('apellidos', 'LIKE', '%' . $this->search . '%');
+            })->paginate(5);
         }
         else if ($user->hasRole('Jefe')) 
         {   
-           return Solicitud::all(); // Las solicitudes del area del jefe
+            return Solicitud::whereHas('empleado', function ($query) {
+                $query->where('nombres', 'LIKE', '%' . $this->search . '%')
+                      ->orWhere('apellidos', 'LIKE', '%' . $this->search . '%');
+            })->paginate(5);
         }
         else
         {
            return Solicitud::whereHas('empleado', function ($query) use ($user){
-                $query->where('correo', $user->mail);
-            })->get();
+                $query->where('correo', $user->mail)
+                        ->where('nombres', 'LIKE', '%'.$this->search.'%')
+                        ->orWhere('apellidos', 'LIKE', '%'.$this->search.'%') ;
+            })->paginate(5);
         } 
     }
 
-    public function search()
-    {   
-        
+    public function updatingSearch(){
+        $this->resetPage();
     }
 
     public function render()

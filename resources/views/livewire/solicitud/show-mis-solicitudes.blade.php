@@ -1,11 +1,19 @@
 <div>
     <div class="bg-slate-100 min-h-full">
-        @livewire('solicitud.create-modal')
-
+        <div class="grid grid-cols-1 lg:grid-cols-5 md:grid-cols-3 items-center min-w-[98%] lg:mx-[1%] md:mx-[1%] md:px-2 lg:px-2 ">
+            <div class= "col-span-1 ">
+                @livewire('solicitud.create-modal')
+            </div>
+            <div class="col-span-1 lg:col-span-4 md:col-span-2">
+                <input 
+                placeholder="Buscar..." 
+                wire:model.live="search" 
+                class=" w-full rounded-lg py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>            
+        </div>
         {{-- carga de registros  --}}
         @if($solicitudes && count($solicitudes) > 0)
             <section class="container ">
-
                 <div class="flex flex-col mt-6">
                     <div class=" -my-2 overflow-x-auto  ">
                         <div class="lg:mx-[1%] md:mx-[1%] inline-block min-w-[98%] py-2 align-middle md:px-2 lg:px-2">
@@ -148,6 +156,11 @@
                 </div>
     
             </section>
+            <footer class="mx-5 mt-2">
+                <div> 
+                    {{$solicitudes->links()}} 
+                </div>
+            </footer>
         @else
         
             <h1 class="text-center text-3xl font-bold text-gray-800">No hay Solicitudes</h1>
