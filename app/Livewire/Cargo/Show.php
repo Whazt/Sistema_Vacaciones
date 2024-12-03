@@ -6,20 +6,17 @@ use App\Models\Cargo;
 use Livewire\Component;
 use App\Models\Area;
 use App\Http\Requests\CargoRequest;
+use Livewire\WithPagination;
 
 class Show extends Component
 {
-    public $id,$nombre,$descripcion,$id_area;
+    use WithPagination;
+    public $id,$nombre,$descripcion,$id_area, $search;
     public $open_edit=false;
     public $areas;
     protected $listeners = ['actrender' => 'render'];
 
-    public function render()
-    {
-        $cargos = Cargo::with('area')->get();
-        return view('livewire.cargo.show', compact('cargos'));
-    } 
-
+    
     public function mount(){
         $this->areas = Area::all();
     }
@@ -56,5 +53,19 @@ class Show extends Component
     public function delete(Cargo $cargo){
         $cargo->delete();
     }
-   
+    
+    public function updatingSearch(){
+        $this->resetPage();
+    }
+
+    public function render()
+    {
+        $cargos = Cargo::with('area')
+            ->where('nombre', 'LIKE', '%'.$this->search.'%')
+            ->orderBy('id_area', 'asc')
+            ->paginate(5);
+
+        return view('livewire.cargo.show', compact('cargos'));
+    } 
+
 }

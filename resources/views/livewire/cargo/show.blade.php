@@ -1,7 +1,17 @@
 <div>
     <div class="bg-slate-100 min-h-full">
-        @livewire('cargo.create-modal')
-
+        
+        <div class="grid grid-cols-4 items-center min-w-[98%] ">
+            <div class= "col-span-1 place-items-center">
+                @livewire('cargo.create-modal')
+            </div>
+            <div class="col-span-3">
+                <input 
+                placeholder="Buscar..." 
+                wire:model.live="search" 
+                class=" w-[90%] rounded-lg py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>            
+        </div>
         {{-- carga de registros  --}}
         <section class="container ">
 
@@ -113,7 +123,11 @@
             </div>
           
         </section>
-       
+        <footer class="mx-5 mt-2">
+            <div> 
+                {{$cargos->links()}} 
+            </div>
+        </footer>
     </div>
 
     {{-- modal de edicion --}}

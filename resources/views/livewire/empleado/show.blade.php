@@ -1,9 +1,19 @@
 <div>
     <div class="bg-slate-100 min-h-full">
-        @can('crear-Empleados')
-          @livewire('empleado.create-modal')
-        @endcan
-
+        
+        <div class="grid grid-cols-4 items-center min-w-[98%] ">
+            <div class= "col-span-1 place-items-center">
+                @can('crear-Empleados')
+                    @livewire('empleado.create-modal')
+                @endcan
+            </div>
+            <div class="col-span-3">
+                <input 
+                placeholder="Buscar..." 
+                wire:model.live="search" 
+                class=" w-[90%] rounded-lg py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>            
+        </div>
         {{-- carga de registros  --}}
         <section class="container ">
 

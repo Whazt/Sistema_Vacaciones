@@ -8,12 +8,14 @@ use App\Models\Empleado;
 use App\Models\Cargo;
 use App\Http\Requests\EmpleadoRequest;
 use Carbon\Carbon;
+use Livewire\WithPagination;
 
 class Show extends Component
 {
+    use WithPagination;
     public $id, $nombres, $apellidos, $correo, $telefono, $id_cargo, $estado, $fecha_ingreso, $dias_vacaciones_usados, $id_jefe;
     public $open_edit = false;
-    public $area_selected;
+    public $area_selected, $search;
     public $cargos_por_area = [], $jefes = [];
     protected $listeners = ['actrender' => 'render'];
 
@@ -138,26 +140,59 @@ class Show extends Component
     public function cargarEmpleados(){
         $user = auth()->user();
 
-        $empleados = null;
+        // if($user->hasRole('Jefe'))
+        // {
+        //     $empl= Empleado::where('correo' , $user->email )->first();
+        //     $empleados = Empleado::where('id_jefe', $empl->id)
+        //     ->where('nombres', 'LIKE', '%'.$this->search.'%') 
+        //     ->orWhere('apellidos', 'LIKE', '%'.$this->search.'%')
+        //     ->map(function($empleado) {
+        //         $empleado->dias_disponibles = $this->calcularDiasVacacionesDisponibles($empleado->fecha_ingreso, $empleado->dias_vacaciones_usados);
+        //         return $empleado;
+        //     }) ;
+        // }
+        // else
+        // {
+        //     $empleados = Empleado::where('nombres', 'LIKE', '%'.$this->search.'%') 
+        //     ->orWhere('apellidos', 'LIKE', '%'.$this->search.'%')
+        //     ->map(function($empleado) {
+        //         $empleado->dias_disponibles = $this->calcularDiasVacacionesDisponibles($empleado->fecha_ingreso, $empleado->dias_vacaciones_usados);
+        //         return $empleado;
+        //     });
+        // }
 
-        if($user->hasRole('Jefe'))
-        {
-            $empl= Empleado::where('correo' , $user->email )->first();
-            $empleados = Empleado::where('id_jefe', $empl->id)->get()->map(function($empleado) {
-                $empleado->dias_disponibles = $this->calcularDiasVacacionesDisponibles($empleado->fecha_ingreso, $empleado->dias_vacaciones_usados);
-                return $empleado;
-            }); 
+        // return $empleados;
+        
+        if ($user->hasRole('Jefe')) {
+            $empl = Empleado::where('correo', $user->email)->first();
+            $query = Empleado::where('id_jefe', $empl->id)
+                ->where(function ($q) {
+                    $q->where('nombres', 'LIKE', '%'.$this->search.'%')
+                      ->orWhere('apellidos', 'LIKE', '%'.$this->search.'%');
+                });
+        } else {
+            $query = Empleado::where(function ($q) {
+                $q->where('nombres', 'LIKE', '%'.$this->search.'%')
+                  ->orWhere('apellidos', 'LIKE', '%'.$this->search.'%');
+            });
         }
-        else
-        {
-            $empleados = Empleado::all()->map(function($empleado) {
-                $empleado->dias_disponibles = $this->calcularDiasVacacionesDisponibles($empleado->fecha_ingreso, $empleado->dias_vacaciones_usados);
-                return $empleado;
-            }); 
-        }
-
+    
+        // Paginación con transformación
+        $empleados = $query->paginate(10); // Número de registros por página
+    
+        // Transformar los datos
+        $empleados->getCollection()->transform(function ($empleado) {
+            $empleado->dias_disponibles = $this->calcularDiasVacacionesDisponibles(
+                $empleado->fecha_ingreso,
+                $empleado->dias_vacaciones_usados
+            );
+            return $empleado;
+        });
+    
+        // Devuelve directamente el objeto paginado, compatible con foreach
         return $empleados;
     }
+
     public function render()
     {
         // $empleados = Empleado::all()->map(function($empleado) {

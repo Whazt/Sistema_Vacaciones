@@ -5,12 +5,14 @@ namespace App\Livewire\Area;
 use Livewire\Component;
 use App\Models\Area;
 use App\Http\Requests\AreaRequest;
+use Livewire\WithPagination;
 
 use function Termwind\render;
 
 class Show extends Component
 {
-    public $id,$descripcion, $nombre;
+    use WithPagination;
+    public $id,$descripcion, $nombre, $search;
     public $open_edit=false;
     protected $listeners = ['actrender' => 'render'];
 
@@ -44,14 +46,20 @@ class Show extends Component
         $this->open_edit = false;
         $this->resetValidation();
     }
-
-    public function render()
-    {
-        $areas = Area::all();
-        return view('livewire.area.show', compact('areas'));
+    public function updatingSearch(){
+        $this->resetPage();
     }
-
     public function delete(Area $area){
         $area->delete();
     }
+
+    public function render()
+    {
+        $areas = Area::where('nombre', 'LIKE', '%'.$this->search.'%') 
+                 ->paginate(5); 
+
+        return view('livewire.area.show', compact('areas'));
+    }
+
+   
 }
