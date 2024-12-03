@@ -6,15 +6,19 @@ use App\Models\User;
 use App\Http\Requests\UserRequest;
 use Livewire\Component;
 use Illuminate\Support\Facades\Hash;
+use Livewire\WithPagination;
 
 class Show extends Component
 {   
+    use WithPagination;
     public $open_edit=false;
-    public $id,$name, $email, $role, $password;
+    public $id,$name, $email, $role, $password, $search ;
+  
 
     protected $listeners = ['actrender' => 'render'];
 
     public function edit($id){
+        dd($this->search);
         $user = User::find($id);
         $this->id = $user->id;
         $this->name = $user->name;
@@ -48,6 +52,7 @@ class Show extends Component
     }
 
     public function delete(User $user){
+       
         $user->delete();
     }
 
@@ -62,9 +67,17 @@ class Show extends Component
         $this->update();
     }
 
+    public function updatingSearch(){
+        $this->resetPage();
+    }
+    
+
     public function render()
     {
-        $users = User::with('roles')->get();
+        $users = User::with('roles')
+            ->where('name', 'LIKE', '%'.$this->search.'%')
+            ->paginate(5);
+
         return view('livewire.user.show', compact('users'));
     }
 }

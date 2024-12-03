@@ -142,13 +142,18 @@
                                     @endforeach
                                 </tbody>
                             </table>
+
                         </div>
                     </div>
                 </div>
             </div>
           
         </section>
-       
+        <footer>
+            <div> 
+                {{$empleados->links()}} 
+            </div>
+        </footer>
     </div>
 
     {{-- modal de edicion --}}
