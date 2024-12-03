@@ -1,21 +1,21 @@
 <div>
     <div class="bg-slate-100 min-h-full">
-        <div class="grid grid-cols-4 items-center min-w-[98%] ">
-            <div class= "col-span-1 place-items-center">
+        <div class="grid grid-cols-1 lg:grid-cols-5 md:grid-cols-3 items-center min-w-[98%] lg:mx-[1%] md:mx-[1%] md:px-2 lg:px-2 ">
+            <div class= "col-span-1 ">
                 @livewire('user.create-modal')
             </div>
-            <div class="col-span-3">
+            <div class="col-span-1 lg:col-span-4 md:col-span-2">
                 <input 
                 placeholder="Buscar..." 
                 wire:model.live="search" 
-                class=" w-[90%] rounded-lg py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                class=" w-full rounded-lg py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
             </div>            
         </div>
 
         {{-- carga de registros  --}}
         <section class="container ">
 
-            <div class="flex flex-col mt-6">
+            <div class="flex flex-col mt-5">
                 <div class=" -my-2 overflow-x-auto  ">
                     <div class="lg:mx-[1%] md:mx-[1%] inline-block min-w-[98%] py-2 align-middle md:px-2 lg:px-2">	
                         <div class="overflow-hidden border border-gray-700 md:rounded-lg">
