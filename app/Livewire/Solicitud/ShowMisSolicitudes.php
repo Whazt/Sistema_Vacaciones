@@ -13,8 +13,6 @@ class ShowMisSolicitudes extends Component
     use WithPagination;
     public $id, $id_empleado, $fecha_inicio, $fecha_fin, $estado, $detalles, $aprobacion_jefe, $aprobacion_rh, $search;
     public $open_edit=false;
-
-
     protected $listeners = ['actrender' => 'render'];
 
     public function edit($idempleado){
@@ -32,9 +30,7 @@ class ShowMisSolicitudes extends Component
 
     public function update(){
         $request = new SolicitudRequest();
-       
-        // Validar los datos usando las reglas y mensajes de la instancia
-        
+ 
         $validatedData = $this->validate(
             $request->rules(true),
             $request->messages()
@@ -60,7 +56,6 @@ class ShowMisSolicitudes extends Component
                 ->where('nombres', 'LIKE', '%'.$this->search.'%')
                 ->orWhere('apellidos', 'LIKE', '%'.$this->search.'%');
         })
-        
         ->paginate(5);        
     }
 
