@@ -47,6 +47,9 @@ Route::middleware([
     Route::get('/misSolicitudes', [SolicitudController::class, 'MisSolicitudes'])->middleware('can:ver-mis-solicitudes')
         ->name('paginas.misSolicitudes');
     
+    Route::get('/pendientes', [SolicitudController::class, 'pendientes'])->middleware('can:ver-solicitudes')
+        ->name('paginas.pendientes');
+
     Route::get('/usuarios', [UsuarioController::class, 'index'])->middleware('can:ver-Usuarios')
         ->name('paginas.usuarios');
 

@@ -48,6 +48,7 @@ class Show extends Component
         $this->open_edit = false;
         $this->resetValidation();
     }
+
     public function delete(Solicitud $solicitud){
         $solicitud->delete();
     }
@@ -61,14 +62,16 @@ class Show extends Component
             return Solicitud::whereHas('empleado', function ($query) {
                 $query->where('nombres', 'LIKE', '%' . $this->search . '%')
                       ->orWhere('apellidos', 'LIKE', '%' . $this->search . '%');
-            })->paginate(5);
+            })  ->orderBy('id', 'desc')
+                ->paginate(5);
         }
         else if ($user->hasRole('Jefe')) 
         {   
             return Solicitud::whereHas('empleado', function ($query) {
                 $query->where('nombres', 'LIKE', '%' . $this->search . '%')
                       ->orWhere('apellidos', 'LIKE', '%' . $this->search . '%');
-            })->paginate(5);
+            })->orderBy('id', 'desc')
+                ->paginate(5);
         }
         else
         {
@@ -76,7 +79,8 @@ class Show extends Component
                 $query->where('correo', $user->mail)
                         ->where('nombres', 'LIKE', '%'.$this->search.'%')
                         ->orWhere('apellidos', 'LIKE', '%'.$this->search.'%') ;
-            })->paginate(5);
+            })->orderBy('id', 'desc')
+                ->paginate(5);
         } 
     }
 

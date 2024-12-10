@@ -29,11 +29,6 @@ class CreateModal extends Component
         $this->cargos_por_area = Cargo::where('id_area', $this->area_selected)->get();
     }
 
-    public function loadCargosYEmpleados()
-    {
-        $this->load_cargos();
-        $this->load_empleadosarea();
-    }
 
     public function store()
     {

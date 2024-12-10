@@ -18,7 +18,7 @@ class Show extends Component
     protected $listeners = ['actrender' => 'render'];
 
     public function edit($id){
-        dd($this->search);
+    
         $user = User::find($id);
         $this->id = $user->id;
         $this->name = $user->name;

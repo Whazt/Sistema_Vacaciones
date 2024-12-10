@@ -15,4 +15,9 @@ class SolicitudController extends Controller
     {
         return view('paginas.misSolicitudes');
     }
+
+    public function pendientes()
+    {
+        return view('paginas.pendientes');
+    }
 }

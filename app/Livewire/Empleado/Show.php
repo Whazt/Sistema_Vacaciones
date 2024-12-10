@@ -15,7 +15,7 @@ class Show extends Component
     use WithPagination;
     public $id, $nombres, $apellidos, $correo, $telefono, $id_cargo, $estado, $fecha_ingreso, $dias_vacaciones_usados, $id_jefe;
     public $open_edit = false;
-    public $area_selected, $search, $selectedName = "";
+    public $area_selected, $search , $searchEmp;
     public $cargos_por_area = [], $jefes = [];
     protected $listeners = ['actrender' => 'render'];
 
@@ -23,7 +23,12 @@ class Show extends Component
     public function edit($idempleado)
     {
         $empleado = Empleado::findOrFail($idempleado);
+        if($empleado->id_jefe != null){
 
+            $jefe = Empleado::findOrFail($empleado->id_jefe);
+            $this->searchEmp = $jefe->nombres . " " . $jefe->apellidos;
+        }
+        
         $this->area_selected = $empleado->cargo->area->id;
 
         $this->id = $empleado->id;
@@ -35,6 +40,7 @@ class Show extends Component
         $this->estado = $empleado->estado;
         $this->id_jefe = $empleado->id_jefe;
         $this->fecha_ingreso = $empleado->fecha_ingreso;
+        
         $this->dias_vacaciones_usados = $empleado->dias_vacaciones_usados;
         $this->loadCargosYEmpleados();
         $this->open_edit = true;
@@ -81,20 +87,15 @@ class Show extends Component
     }
 
 
-    // metodos para cargar datos
-    public function load_empleadosarea()
+   
+    public function load_empleadosSearch()
     {
-        // Verificar que area_selected tiene un valor válido
-        if (!$this->area_selected) {
-            return; // No hacer nada si no se ha seleccionado un área
-        }
-
-        // Obtener los empleados del área seleccionada, excluyendo al empleado actual
-        $empleados = Empleado::whereHas('cargo', function ($query) {
-            $query->where('id_area', $this->area_selected);
-        })
-        ->where('id', '!=', $this->id) // Asegurarse de que no se incluya el propio empleado
-        ->get();
+        
+        $empleados = Empleado::where('id', '!=', $this->id)
+        ->where(function ($query) {
+            $query->where('nombres', 'LIKE', '%'.$this->searchEmp.'%')
+                  ->orWhere('apellidos', 'LIKE', '%'.$this->searchEmp.'%');
+        })->get();
 
         // Asignar los empleados encontrados a la propiedad $jefes
         $this->jefes = $empleados;
@@ -108,7 +109,8 @@ class Show extends Component
     public function loadCargosYEmpleados()
     {
         $this->load_cargos();
-        $this->load_empleadosarea();
+        $this->load_empleadosSearch();
+        
     }
 
     public function cancelar()
@@ -133,7 +135,7 @@ class Show extends Component
         $this->jefes = [];
         $this->cargos_por_area = [];
         $this->search = null;
-        $this->selectedName = "";
+    
     }
 
     public function cargarEmpleados(){
@@ -173,6 +175,7 @@ class Show extends Component
     {
         $empleados = $this->cargarEmpleados();
         $areas = Area::all();
+        $jefes = $this->load_empleadosSearch();
 
         return view('livewire.empleado.show', compact('empleados'), compact('areas'));
     }

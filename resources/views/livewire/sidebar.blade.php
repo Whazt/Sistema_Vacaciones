@@ -60,6 +60,14 @@
                            Todas las Solicitudes
                         </a>
                      </li>
+                     <li>
+                        <a
+                           href="{{ route('paginas.pendientes') }}"
+                           class="{{ request()->routeIs('paginas.pendientes') ? 'bg-gray-900 text-white': '' }} block px-4 py-2 text-sm rounded-md text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600"
+                        >
+                           Solicitudes Pendientes
+                        </a>
+                     </li>
                   @endcan
                   
                </ul>

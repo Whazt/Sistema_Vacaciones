@@ -60,7 +60,7 @@
             
             <div class="mb-5">
                 <label for="nombre" class="block mb-2 text-sm font-medium text-gray-900 ">Área</label>
-                <select id="area" wire:model="area_selected" wire:change="loadCargosYEmpleados()" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  ">
+                <select id="area" wire:model="area_selected" wire:change="load_cargos()" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  ">
                     <option value="">Selecciona un Área</option>
                     @foreach($areas as $area)
                         <option value="{{ $area->id }}">{{ $area->nombre }}</option>
