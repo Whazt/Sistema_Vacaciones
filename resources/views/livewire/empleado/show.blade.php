@@ -223,7 +223,7 @@
 
             <div class="mb-5">
                 <label for="nombre" class="block mb-2 text-sm font-medium text-gray-900 ">Cargo</label>
-                <select id="area" wire:model="id_cargo" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  ">
+                <select id="cargo" wire:model="id_cargo" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  ">
                     <option value="">Selecciona un Cargo</option>
                     @foreach($cargos_por_area as $cargo)
                         <option value="{{ $cargo->id }}" >{{ $cargo->nombre }}</option>
@@ -234,21 +234,7 @@
                     <p class="text-red-500 text-xs italic">{{ $message }}</p>                    
                 @enderror
             </div>
-            {{-- <div class="mb-5">
-                <label for="nombre" class="block mb-2 text-sm font-medium text-gray-900 ">Jefe Inmediato</label>
-                <select id="area" wire:model="id_jefe" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  ">
-                    <option value="">Jefe Inmediato</option>
-                    @foreach($jefes as $item)
-                        <option value="{{ $item->id }}">{{ $item->nombres }} {{ $item->apellidos }}</option>
-                    @endforeach
-                </select>
-                <p> {{$id_jefe}} </p>
-                @error('id_jefe')
-                    <p class="text-red-500 text-xs italic">{{ $message }}</p>                    
-                @enderror
-
-            </div> --}}
-
+           
             <div class="mb-5" x-data="{ show: false }">
                 <label for="nombre" class="block mb-2 text-sm font-medium text-gray-900">Jefe Inmediato</label>
                 

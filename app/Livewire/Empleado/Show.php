@@ -28,6 +28,9 @@ class Show extends Component
             $jefe = Empleado::findOrFail($empleado->id_jefe);
             $this->searchEmp = $jefe->nombres . " " . $jefe->apellidos;
         }
+
+        $cargo = Cargo::findOrFail($empleado->id_cargo);
+    
         
         $this->area_selected = $empleado->cargo->area->id;
 
@@ -36,13 +39,14 @@ class Show extends Component
         $this->apellidos = $empleado->apellidos;
         $this->correo = $empleado->correo;
         $this->telefono = $empleado->telefono;
-        $this->id_cargo = $empleado->id_cargo;
+       
         $this->estado = $empleado->estado;
         $this->id_jefe = $empleado->id_jefe;
         $this->fecha_ingreso = $empleado->fecha_ingreso;
-        
-        $this->dias_vacaciones_usados = $empleado->dias_vacaciones_usados;
         $this->loadCargosYEmpleados();
+        $this->id_cargo = $empleado->id_cargo;
+        $this->dias_vacaciones_usados = $empleado->dias_vacaciones_usados;
+        
         $this->open_edit = true;
        
     }
