@@ -1,6 +1,5 @@
 <div>
     <div class="bg-slate-100 min-h-full">
-        
         <div class="grid grid-cols-1 lg:grid-cols-5 md:grid-cols-3 items-center min-w-[98%] lg:mx-[1%] md:mx-[1%] md:px-2 lg:px-2 ">
             <div class= "col-span-1 ">
                 @can('crear-Empleados')
@@ -16,7 +15,6 @@
         </div>
         {{-- carga de registros  --}}
         <section class="container ">
-
             <div class="flex flex-col mt-6">
                 <div class=" -my-2 overflow-x-auto  ">
                     <div class="lg:mx-[1%] md:mx-[1%] inline-block min-w-[98%] py-2 align-middle md:px-2 lg:px-2">	
@@ -26,15 +24,12 @@
                                     <tr>
                                         <th scope="col" class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                             <div class="flex items-center gap-x-3">
-                                                {{-- <input type="checkbox" class="text-blue-500 border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700"> --}}
                                                 <span>Id</span>
                                             </div>
                                         </th>
-        
                                         <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                             <button class="flex items-center gap-x-2">
                                                 <span>Nombre</span>
-        
                                                 <svg class="h-3" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M2.13347 0.0999756H2.98516L5.01902 4.79058H3.86226L3.45549 3.79907H1.63772L1.24366 4.79058H0.0996094L2.13347 0.0999756ZM2.54025 1.46012L1.96822 2.92196H3.11227L2.54025 1.46012Z" fill="currentColor" stroke="currentColor" stroke-width="0.1" />
                                                     <path d="M0.722656 9.60832L3.09974 6.78633H0.811638V5.87109H4.35819V6.78633L2.01925 9.60832H4.43446V10.5617H0.722656V9.60832Z" fill="currentColor" stroke="currentColor" stroke-width="0.1" />
@@ -42,7 +37,6 @@
                                                 </svg>
                                             </button>
                                         </th>
-        
                                         <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                             <button class="flex items-center gap-x-2">
                                                 <span>Correo</span>
@@ -64,7 +58,7 @@
                                         <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                             <button class="flex items-center gap-x-2">
                                                 <span>Fecha Ingreso</span>
-        
+    
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
                                                     <path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
                                                 </svg>
@@ -79,7 +73,6 @@
                                                 </svg>
                                             </button>
                                         </th>
-        
                                         @can('editar-Empleados')
                                             <th scope="col" class="relative py-3.5 px-4">
                                                 <span class="sr-only">Edit</span>
@@ -92,12 +85,9 @@
                                         <tr>
                                             <td class="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
                                                 <div class="inline-flex items-center gap-x-3">
-                                                    {{-- <input type="checkbox" class="text-blue-500 border-gray-300 rounded "> --}}
-            
                                                     <div class="flex items-center gap-x-2">
                                                         <div>
                                                             <h2 class="font-medium text-gray-800 ">{{$item->id}}</h2>
-                                                        
                                                         </div>
                                                     </div>
                                                 </div>
@@ -128,7 +118,6 @@
                                             </td>
                                             <td class="px-1 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
                                                 <div class="inline-flex items-center px-3 py-1 rounded-full gap-x-2  ">
-            
                                                     <h2 class="text-sm font-normal ">{{$item->dias_disponibles}}</h2>
                                                 </div>
                                             </td>
@@ -152,12 +141,10 @@
                                     @endforeach
                                 </tbody>
                             </table>
-
                         </div>
                     </div>
                 </div>
             </div>
-          
         </section>
         <footer>
             <div> 
@@ -187,7 +174,6 @@
                     <p class="text-red-500 text-xs italic">{{ $message }}</p>                    
                 @enderror
             </div>
-
             <div class="mb-5">
                 <label for="correo" class="block mb-2 text-sm font-medium text-gray-900 ">Correo</label>
                 <input wire:model="correo" type="email" id="correo" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  " required />
@@ -209,11 +195,9 @@
                     <p class="text-red-500 text-xs italic">{{ $message }}</p>                    
                 @enderror
             </div>
-
-            
             <div class="mb-5">
                 <label for="area" class="block mb-2 text-sm font-medium text-gray-900 ">Área</label>
-                <select id="area" wire:model="area_selected" wire:change="load_cargos()" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  ">
+                <select id="area" wire:model="area_selected" wire:change="load_cargosSearch()" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  ">
                     <option value="">Selecciona un Área</option>
                     @foreach($areas as $area)
                         <option value="{{ $area->id }}">{{ $area->nombre }}</option>
@@ -221,24 +205,36 @@
                 </select>
             </div>
 
-            <div class="mb-5">
-                <label for="nombre" class="block mb-2 text-sm font-medium text-gray-900 ">Cargo</label>
-                <select id="cargo" wire:model="id_cargo" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  ">
-                    <option value="">Selecciona un Cargo</option>
-                    @foreach($cargos_por_area as $cargo)
-                        <option value="{{ $cargo->id }}" >{{ $cargo->nombre }}</option>
-                    @endforeach
-                </select>
-                <p> {{$id_cargo}} </p>
-                @error('id_cargo')
-                    <p class="text-red-500 text-xs italic">{{ $message }}</p>                    
-                @enderror
+            <div class="mb-5" x-data="{ show: false }">
+                <label for="nombre" class="block mb-2 text-sm font-medium text-gray-900">Cargo</label>
+                
+                <input type="text" 
+                       wire:model.live="searchCargo"
+                       @focus="show = true"
+                       @click.away="show = false"
+                       @input="show = true"
+                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                       placeholder="Buscar Cargo...">
+            
+                <div x-show="show" class="relative mt-2">
+                    <ul class="absolute z-10 bg-white border border-gray-300 w-full rounded-lg shadow-lg">
+                        @foreach($cargos as $item)
+                            <li class="p-2 cursor-pointer hover:bg-gray-200" 
+                                @click="$wire.set('id_cargo', '{{ $item->id }}'); $wire.set('searchCargo', '{{ $item->nombre }}'); show = false;">
+                                {{ $item->nombre }} 
+                            </li>
+                        @endforeach
+                        @if(empty($cargos))
+                            <li class="p-2 text-gray-500">No se encontraron resultados</li>
+                        @endif
+                    </ul>
+                </div>
             </div>
+       
            
             <div class="mb-5" x-data="{ show: false }">
                 <label for="nombre" class="block mb-2 text-sm font-medium text-gray-900">Jefe Inmediato</label>
                 
-                <!-- Input para búsqueda -->
                 <input type="text" 
                        wire:model.live="searchEmp"
                        @focus="show = true"
@@ -247,7 +243,6 @@
                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                        placeholder="Buscar jefe inmediato...">
             
-                <!-- Select dinámico -->
                 <div x-show="show" class="relative mt-2">
                     <ul class="absolute z-10 bg-white border border-gray-300 w-full rounded-lg shadow-lg">
                         @foreach($jefes as $item)

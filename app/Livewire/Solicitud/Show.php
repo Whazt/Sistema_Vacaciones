@@ -14,7 +14,6 @@ class Show extends Component
     public $id, $id_empleado, $fecha_inicio, $fecha_fin, $estado, $detalles, $aprobacion_jefe, $aprobacion_rh, $search;
     public $open_edit=false;
 
-
     protected $listeners = ['actrender' => 'render'];
 
     public function edit($idempleado){

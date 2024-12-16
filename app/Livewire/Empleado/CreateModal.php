@@ -12,8 +12,8 @@ class CreateModal extends Component
 {
     public $id, $nombres, $apellidos, $correo, $telefono, $estado, $fecha_ingreso, $id_cargo, $dias_vacaciones_usados, $id_jefe;
     public $open = false;
-    public $cargos_por_area = [], $jefes = [];
-    public $area_selected, $searchEmp;
+    public $cargos = [], $jefes = [];
+    public $area_selected, $searchEmp, $searchCargo;
     protected $listeners = ['actrender' => 'render'];
 
     public function load_empleados()
@@ -26,9 +26,11 @@ class CreateModal extends Component
 
     public function load_cargos()
     {
-        $this->cargos_por_area = Cargo::where('id_area', $this->area_selected)->get();
+        $cargos = Cargo::where('id_area', $this->area_selected)
+            ->where('nombre', 'like', '%'.$this->searchEmp.'%')
+            ->get();
+        $this->cargos = $cargos;
     }
-
 
     public function store()
     {
@@ -40,7 +42,6 @@ class CreateModal extends Component
         );
         // Crear el área con los datos validados
         Empleado::create($validatedData);
-        
         $this->open = false;
         $this->resetform();
         $this->resetValidation();
@@ -62,19 +63,16 @@ class CreateModal extends Component
         $this->area_selected = null;
         $this->cargos_por_area = [];
     }
-
     public function cancelar()
     {
         $this->resetform();
         $this->open = false;
         $this->resetValidation();
     }
-
     public function render()
     {
         $areas = Area::all();
         $jefes = $this->load_empleados();
-       
         return view('livewire.empleado.create-modal', compact('areas'), compact('jefes'));
     }
 }

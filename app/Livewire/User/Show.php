@@ -13,12 +13,9 @@ class Show extends Component
     use WithPagination;
     public $open_edit=false;
     public $id,$name, $email, $role, $password, $search ;
-  
-
     protected $listeners = ['actrender' => 'render'];
 
     public function edit($id){
-    
         $user = User::find($id);
         $this->id = $user->id;
         $this->name = $user->name;
@@ -42,8 +39,6 @@ class Show extends Component
         [
             'name' => $validatedData['name'],
             'email' => $validatedData['email'],
-            
-                
         ]);
         $user->syncRoles([$validatedData['role']]);
         $this->open_edit = false;
@@ -52,7 +47,6 @@ class Show extends Component
     }
 
     public function delete(User $user){
-       
         $user->delete();
     }
 
@@ -70,14 +64,12 @@ class Show extends Component
     public function updatingSearch(){
         $this->resetPage();
     }
-    
 
     public function render()
     {
         $users = User::with('roles')
             ->where('name', 'LIKE', '%'.$this->search.'%')
             ->paginate(5);
-
         return view('livewire.user.show', compact('users'));
     }
 }

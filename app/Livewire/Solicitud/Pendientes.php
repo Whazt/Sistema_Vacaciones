@@ -7,7 +7,6 @@ use App\Models\Solicitud;
 
 class Pendientes extends Component
 {
-
     public function cargarSolicitudes()
     {
         $result = null;

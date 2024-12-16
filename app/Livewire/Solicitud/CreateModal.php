@@ -49,8 +49,6 @@ class CreateModal extends Component
         $this->aprobacion_rh = null;
     }
 
-
-
     public function render()
     {
        $empleados = Empleado::all();

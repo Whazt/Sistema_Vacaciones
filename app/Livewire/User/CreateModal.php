@@ -30,7 +30,6 @@ class CreateModal extends Component
         $this->dispatch('actrender');
     }
 
-
     public function resetForm()
     {
         $this->name = null;

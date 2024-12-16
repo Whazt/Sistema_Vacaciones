@@ -6,7 +6,6 @@
             <div class="px-6 py-4">
                 <!-- Nombre del empleado -->
                 <div class="font-bold text-xl mb-2">Empleado: {{ $item->empleado->nombres }} {{ $item->empleado->apellidos }}</div>
-
                 <!-- Fechas de inicio y fin -->
                 <p class="text-gray-700 text-base">
                     <strong>Fecha de Inicio:</strong> {{$item->fecha_inicio}}
@@ -14,23 +13,19 @@
                 <p class="text-gray-700 text-base mb-2">
                     <strong>Fecha de Fin:</strong> {{$item->fecha_fin}}
                 </p>
-
                 <!-- Días de vacaciones -->
                 <p class="text-gray-700 text-base mb-2">
                     <strong>Días de Vacaciones:</strong> 
                 </p>
-
                 <!-- Detalles de la solicitud -->
                 <p class="text-gray-700 text-base mb-2">
                     <strong>Detalles:</strong> {{$item->detalles}}
                 </p>
-
                 <!-- Estado de la solicitud -->
                 <p class="text-gray-700 text-base mb-4">
                     <strong>Estado:</strong>
                     <span class="text-green-500 font-semibold">{{$item->estado}}</span>
                 </p>
-
                 <div class="flex ">
                     @if(auth()->user()->hasRole("Jefe"))
                         @if( empty($item->aprobacion_jefe))
@@ -50,8 +45,7 @@
                                 Rechazar
                             </button>
                         @endif
-                    @endif
-                    
+                    @endif                  
                 </div>
             </div>
         </div>

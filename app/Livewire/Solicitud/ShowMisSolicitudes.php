@@ -44,6 +44,7 @@ class ShowMisSolicitudes extends Component
         $this->open_edit = false;
         $this->resetValidation();
     }
+    
     public function delete(Solicitud $solicitud){
         $solicitud->delete();
     }

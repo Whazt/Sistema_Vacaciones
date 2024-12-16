@@ -27,7 +27,6 @@
                                                     <span>Id</span>
                                                 </div>
                                             </th>
-    
                                             <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                                 <button class="flex items-center gap-x-2">
                                                     <span>Nombre</span>
@@ -39,7 +38,6 @@
                                                     </svg>
                                                 </button>
                                             </th>
-    
                                             <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                                 <button class="flex items-center gap-x-2">
                                                     <span>Fecha Inicio</span>
@@ -76,7 +74,6 @@
                                                     </svg>
                                                 </button>
                                             </th>
-    
                                             <th scope="col" class="relative py-3.5 px-4">
                                                 <span class="sr-only">Edit</span>
                                             </th>
@@ -115,7 +112,6 @@
                                                         <h2 class="text-sm font-normal ">{{$item->fecha_fin}}</h2>
                                                     </div>
                                                 </td>
-    
                                                 <td class="px-1 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
                                                     <div class="inline-flex items-center px-3 py-1 rounded-full gap-x-2  ">
     
@@ -128,7 +124,6 @@
                                                         <h2 class="text-sm font-normal ">{{$item->estado}}</h2>
                                                     </div>
                                                 </td>
-    
                                                 <td class="px-4 py-4 text-sm whitespace-nowrap">
                                                     <div class="flex items-center gap-x-6">
                                                         @if($item->aprobacion_jefe == null && $item->aprobacion_rh ==null && $item->estado == 'pendiente')
@@ -162,11 +157,8 @@
                 </div>
             </footer>
         @else
-        
             <h1 class="text-center text-3xl font-bold text-gray-800">No hay Solicitudes</h1>
         @endif
-        
-
     </div>
 
     {{-- modal de edicion --}}
