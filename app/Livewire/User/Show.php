@@ -56,9 +56,10 @@ class Show extends Component
         $this->open_edit = false;
     }
 
-    public function resetPassword(){
-        $this->password = '#Password123';
-        $this->update();
+    public function resetPassword(User $user){
+        $user->update([
+            'password' => Hash::make('#Password123'),
+        ]);
     }
 
     public function updatingSearch(){

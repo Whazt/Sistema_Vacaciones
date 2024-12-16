@@ -22,7 +22,7 @@ class CreateModal extends Component
         User::create([
             'name' => $validatedData['name'],
             'email' => $validatedData['email'],
-            'password' => $validatedData['password'],
+            'password' => Hash::make($validatedData['password']),
         ])->assignRole($validatedData['role']);
         $this->resetValidation();
         $this->open = false;

@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Empleado;
+use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 
 class SolicitudRequest extends FormRequest
@@ -29,11 +31,14 @@ class SolicitudRequest extends FormRequest
             'detalles' => 'required|string|max:255',
             'aprobacion_jefe' => 'date|before:fecha_inicio|nullable',
             'aprobacion_rh' => 'date|before:fecha_inicio|nullable',
+            
         ];
 
         if(!$update){
             $rules['fecha_inicio'] .= '|after:today';
         }
+
+        
 
         return $rules;
     }
@@ -60,5 +65,6 @@ class SolicitudRequest extends FormRequest
             'aprobacion_rh.before' => 'La fecha de aprobación de RH no puede ser mayor a la fecha de inicio',
         ];
     }
+    
 }
 

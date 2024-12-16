@@ -163,6 +163,15 @@
                     <p class="text-red-500 text-xs italic">{{ $message }}</p>                    
                 @enderror
             </div>
+
+            <div>
+                <label for="password" class="block text-sm font-medium text-gray-700">
+                    Reestablecer Contraseña
+                </label>
+                <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" wire:click="resetPassword({{ $id }})">
+                    Reestablecer
+                </button>
+            </div>
         </x-slot>
 
         <x-slot name="footer">

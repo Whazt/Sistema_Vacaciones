@@ -10,17 +10,22 @@
             @if(!(auth()->user()->hasRole("Empleado") || (auth()->user()->hasRole("Jefe"))))
                 <div class="mb-5">
                     <label for="empleados" class="block mb-2 text-sm font-medium text-gray-900 ">Empleado</label>
-                    <select id="empleados" wire:model="id_empleado" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  " required>
+                    <select id="empleados" wire:model.live="id_empleado" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  " required>
                         <option value="">Empleado</option>
                         @foreach($empleados as $item)
                             <option value="{{ $item->id }}">{{ $item->nombres }} {{ $item->apellidos }}</option>
                         @endforeach
-                    </select>
+                    s</select>
                     @error('id_empleado')
                         <p class="text-red-500 text-xs italic">{{ $message }}</p>                    
                     @enderror
                 </div>  
             @endif
+            
+            <div class="mb-5">
+                <p> {{ $dias_disponibles }} días disponibles</p>
+            </div>
+
             @error('id_empleado')
                 <p class="text-red-500 text-xs italic">{{ $message }}</p>                    
             @enderror

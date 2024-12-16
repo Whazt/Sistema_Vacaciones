@@ -67,20 +67,14 @@ class Show extends Component
         else if ($user->hasRole('Jefe')) 
         {   
             return Solicitud::whereHas('empleado', function ($query) {
-                $query->where('nombres', 'LIKE', '%' . $this->search . '%')
-                      ->orWhere('apellidos', 'LIKE', '%' . $this->search . '%');
+                $query->where('id_jefe', auth()->user()->empleado->id)
+                      ->where(function ($query) {
+                          $query->where('nombres', 'LIKE', '%' . $this->search . '%')
+                                ->orWhere('apellidos', 'LIKE', '%' . $this->search . '%');
+                      });
             })->orderBy('id', 'desc')
-                ->paginate(5);
+              ->paginate(5);
         }
-        else
-        {
-           return Solicitud::whereHas('empleado', function ($query) use ($user){
-                $query->where('correo', $user->mail)
-                        ->where('nombres', 'LIKE', '%'.$this->search.'%')
-                        ->orWhere('apellidos', 'LIKE', '%'.$this->search.'%') ;
-            })->orderBy('id', 'desc')
-                ->paginate(5);
-        } 
     }
 
     public function updatingSearch(){

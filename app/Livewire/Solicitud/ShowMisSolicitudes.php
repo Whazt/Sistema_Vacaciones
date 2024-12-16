@@ -53,9 +53,7 @@ class ShowMisSolicitudes extends Component
         $user = auth()->user();
 
         return Solicitud::whereHas('empleado', function ($query) use ($user){
-            $query->where('correo', $user->email)
-                ->where('nombres', 'LIKE', '%'.$this->search.'%')
-                ->orWhere('apellidos', 'LIKE', '%'.$this->search.'%');
+            $query->where('correo', $user->email);
         })
         ->paginate(5);        
     }
