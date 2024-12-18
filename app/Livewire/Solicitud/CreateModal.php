@@ -11,7 +11,7 @@ use Carbon\Carbon;
 class CreateModal extends Component
 {
 
-    public $id, $id_empleado, $fecha_inicio, $fecha_fin, $estado = "pendiente", $detalles, $aprobacion_jefe, $aprobacion_rh;
+    public $id, $id_empleado, $fecha_inicio, $fecha_fin, $estado = "Pendiente", $detalles, $aprobacion_jefe, $aprobacion_rh;
     public $open = false;
     public $dias_disponibles;
 

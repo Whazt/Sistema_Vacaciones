@@ -27,8 +27,6 @@ return new class extends Migration
             $table->string('estado')->default('activo')->nullable();
             $table->timestamps();
         });
-
-
         //trigger para actualizar dias usados 
         DB::unprepared('
         CREATE TRIGGER restar_dias_vacaciones
@@ -48,9 +46,8 @@ return new class extends Migration
                 WHERE id = NEW.id_empleado;
             END IF;
         END
-    ');
-    }
-
+        '); 
+    }  
     /**
      * Reverse the migrations.
      */
