@@ -142,6 +142,8 @@ class Show extends Component
         $this->jefes = [];
         $this->cargos = [];
         $this->search = null;
+        $this->searchEmp = null;
+        $this->searchCargo = null;
     
     }
 
