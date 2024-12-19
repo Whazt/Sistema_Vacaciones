@@ -4,9 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Area;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Cargo extends Model
 {
+    use HasFactory;
+
     protected $table = 'cargos';
 
     protected $fillable = ['nombre', 'descripcion', 'id_area'];

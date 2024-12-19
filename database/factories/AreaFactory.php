@@ -18,7 +18,7 @@ class AreaFactory extends Factory
     {
         return [
             'nombre' => fake()->name(),
-            'descripcion' => fake()->paragraph(),
+            'descripcion' => fake()->sentence(),
         ];
     }
 }

@@ -41,7 +41,7 @@
                <ul
                   x-show="open" class="space-y-2 font-medium "
                >
-                  @can('ver-mis-solicitudes')
+                  
                      <li>
                         <a
                            href="{{ route('paginas.misSolicitudes') }}"
@@ -50,7 +50,7 @@
                            Mis Solicitudes
                         </a>
                      </li>
-                  @endcan
+               
                   @can('ver-solicitudes')
                      <li>
                         <a

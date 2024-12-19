@@ -17,9 +17,9 @@ class CargoFactory extends Factory
     public function definition(): array
     {
         return [
-            'id_area' => fake()->randomDigit(2),
+            'id_area' => fake()->numberBetween(1, 5),
             'nombre' => fake()->name(),
-            'descripcion' => fake()->paragraph(),   
+            'descripcion' => fake()->sentence(),   
         ];
     }
 }

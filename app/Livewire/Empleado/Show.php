@@ -28,15 +28,22 @@ class Show extends Component
             $jefe = Empleado::findOrFail($empleado->id_jefe);
             $this->searchEmp = $jefe->nombres . " " . $jefe->apellidos;
         }
+        else
+        {
+            $this->searchEmp = '';
+        }
         if($empleado->id_cargo != null){
 
             $cargo = Cargo::findOrFail($empleado->id_cargo);
             $this->searchCargo = $cargo->nombre;
+            $this->area_selected = $empleado->cargo->area->id;
+        }
+        else
+        {
+            $this->area_selected = '';
+            $this->searchCargo = '';
         }
 
-
-        $cargo = Cargo::findOrFail($empleado->id_cargo);
-        $this->area_selected = $empleado->cargo->area->id;
         $this->id = $empleado->id;
         $this->nombres = $empleado->nombres;
         $this->apellidos = $empleado->apellidos;
@@ -124,6 +131,7 @@ class Show extends Component
     {
         $this->open_edit = false;
         $this->resetValidation();
+        $this->searchEmp = '';
         $this->resetForm();
     }
 
@@ -165,7 +173,7 @@ class Show extends Component
         }
     
         // Paginación con transformación
-        $empleados = $query->paginate(10); // Número de registros por página
+        $empleados = $query->paginate(5); // Número de registros por página
     
         // Transformar los datos
         $empleados->getCollection()->transform(function ($empleado) {

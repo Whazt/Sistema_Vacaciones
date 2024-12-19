@@ -38,7 +38,8 @@ class Pendientes extends Component
         }else{
             $solicitud = Solicitud::find($id);
             $solicitud->aprobacion_rh = now();
-            if((!empty($solicitud->aprobacion_jefe)) || (empty($solicitud->id_jefe))){
+            if((!empty($solicitud->aprobacion_jefe)) || (empty($solicitud->empleado->id_jefe))){
+                // dd($solicitud->empleado->id_jefe);
                 $solicitud->estado = 'Aprobada';
             }
             $solicitud->save();

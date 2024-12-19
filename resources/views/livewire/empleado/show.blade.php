@@ -147,7 +147,7 @@
             </div>
         </section>
         <footer>
-            <div> 
+            <div class="mx-5 mt-2"> 
                 {{$empleados->links()}} 
             </div>
         </footer>
