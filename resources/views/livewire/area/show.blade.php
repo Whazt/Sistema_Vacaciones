@@ -1,7 +1,6 @@
 <div>
     <div class="bg-slate-100 min-h-full">
         {{-- modal para crear una nueva area --}}
-        
         <div class="grid grid-cols-1 lg:grid-cols-5 md:grid-cols-3 items-center min-w-[98%] lg:mx-[1%] md:mx-[1%] md:px-2 lg:px-2 ">
             <div class= "col-span-1 ">
                 @livewire('area.create-modal')
@@ -15,7 +14,6 @@
         </div>
         {{-- tabla para mostrar los registros de areas --}}
         <section class="container ">
-
             <div class="flex flex-col mt-6">
                 <div class=" -my-2 overflow-x-auto  ">
                     <div class="lg:mx-[1%] md:mx-[1%] inline-block min-w-[98%] py-2 align-middle md:px-2 lg:px-2">	
@@ -29,7 +27,6 @@
                                                 <span>Id</span>
                                             </div>
                                         </th>
-        
                                         <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                             <button class="flex items-center gap-x-2">
                                                 <span>Nombre</span>
@@ -41,7 +38,6 @@
                                                 </svg>
                                             </button>
                                         </th>
-        
                                         <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                             <button class="flex items-center gap-x-2">
                                                 <span>Descripción</span>
@@ -51,7 +47,6 @@
                                                 </svg>
                                             </button>
                                         </th>
-        
                                         <th scope="col" class="relative py-3.5 px-4">
                                             <span class="sr-only">Edit</span>
                                         </th>
@@ -67,7 +62,6 @@
                                                     <div class="flex items-center gap-x-1">
                                                         <div>
                                                             <h2 class="font-medium text-gray-800 ">{{$item->id}}</h2>
-                                                        
                                                         </div>
                                                     </div>
                                                 </div>
@@ -84,7 +78,6 @@
                                                     <h2 class="text-sm font-normal ">{{$item->descripcion}}</h2>
                                                 </div>
                                             </td>
-                                           
                                             <td class="px-4 py-4 text-sm whitespace-nowrap">
                                                 <div class="flex items-center gap-x-6">
                                                     <button wire:click="edit({{ $item->id }})" class="text-gray-500 transition-colors duration-200  hover:text-yellow-500 focus:outline-none">
@@ -97,8 +90,6 @@
                                                             <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
                                                         </svg>
                                                     </button>
-            
-                                                    
                                                 </div>
                                             </td>
                                         </tr>
@@ -109,7 +100,6 @@
                     </div>
                 </div>
             </div>
-        
         </section>
         <footer class="mx-5 mt-2">
             <div> 
@@ -121,7 +111,6 @@
     {{-- modal de edicion --}}
     <x-dialog-modal wire:model="open_edit">
         <x-slot name="title">
-            
             Editar Área
         </x-slot>
         <br/>
@@ -150,5 +139,4 @@
             </button>
         </x-slot>
     </x-dialog-modal>
-
 </div>
