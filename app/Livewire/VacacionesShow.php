@@ -13,7 +13,7 @@ class VacacionesShow extends Component
     public function cargarSolicitudes(){
         $user = auth()->user();
 
-        $vacaciones = Solicitud::where('estado', 'Aprobado')
+        $vacaciones = Solicitud::where('estado', 'Aprobada')
         ->whereHas('empleado', function($query) use ($user) {
             $query->where('correo', $user->email);
         })->get();

@@ -196,6 +196,13 @@
                 @enderror
             </div>
             <div class="mb-5">
+                <label for="dias_vacaciones_usados" class="block mb-2 text-sm font-medium text-gray-900 ">Días de vacaciones usados</label>
+                <input wire:model="dias_vacaciones_usados" type="number" id="dias_vacaciones_usados" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  " required />
+                @error('dias_vacaciones_usados')
+                    <p class="text-red-500 text-xs italic">{{ $message }}</p> 
+                @enderror
+            </div>
+            <div class="mb-5">
                 <label for="area" class="block mb-2 text-sm font-medium text-gray-900 ">Área</label>
                 <select id="area" wire:model="area_selected" wire:change="load_cargosSearch()" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  ">
                     <option value="">Selecciona un Área</option>
