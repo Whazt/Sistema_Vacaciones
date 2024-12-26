@@ -45,7 +45,7 @@
                                 Rechazar
                             </button>
                         @endif
-                    @endif                  
+                    @endif
                 </div>
             </div>
         </div>

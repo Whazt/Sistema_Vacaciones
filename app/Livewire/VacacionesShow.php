@@ -6,7 +6,7 @@ use App\Models\Solicitud;
 use Livewire\Component;
 
 use function Laravel\Prompts\select;
-
+ 
 class VacacionesShow extends Component
 {
 
