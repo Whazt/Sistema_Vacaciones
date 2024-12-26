@@ -60,6 +60,7 @@ class Show extends Component
         $user->update([
             'password' => Hash::make('#Password123'),
         ]);
+        $this->cancelar();
     }
 
     public function updatingSearch(){

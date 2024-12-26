@@ -49,11 +49,13 @@ class CreateModal extends Component
         // Si el rol es "Empleado" o "Jefe", asignar directamente el empleado asociado al usuario
         if (auth()->user()->hasRole('Empleado') || auth()->user()->hasRole('Jefe')) {
             $empleado = auth()->user()->empleado;
-            $this->id_empleado = $empleado->id;
-            $this->dias_disponibles = $this->calcularDiasVacacionesDisponibles(
-                $empleado->fecha_ingreso,
-                $empleado->dias_vacaciones_usados
-            );
+            if(!empty($empleado)){
+                $this->id_empleado = $empleado->id;
+                $this->dias_disponibles = $this->calcularDiasVacacionesDisponibles(
+                    $empleado->fecha_ingreso,
+                    $empleado->dias_vacaciones_usados
+                );
+            }
         }
     }
 
