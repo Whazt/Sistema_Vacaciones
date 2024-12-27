@@ -14,6 +14,7 @@ class CreateModal extends Component
     public $id, $id_empleado, $fecha_inicio, $fecha_fin, $estado = "Pendiente", $detalles, $aprobacion_jefe, $aprobacion_rh;
     public $open = false;
     public $dias_disponibles;
+    public $showSelect = false;
 
     public function store()
     {
@@ -47,7 +48,7 @@ class CreateModal extends Component
 
     public function mount(){
         // Si el rol es "Empleado" o "Jefe", asignar directamente el empleado asociado al usuario
-        if (auth()->user()->hasRole('Empleado') || auth()->user()->hasRole('Jefe')) {
+        // if (auth()->user()->hasRole('Empleado') || auth()->user()->hasRole('Jefe')) {
             $empleado = auth()->user()->empleado;
             if(!empty($empleado)){
                 $this->id_empleado = $empleado->id;
@@ -56,8 +57,25 @@ class CreateModal extends Component
                     $empleado->dias_vacaciones_usados
                 );
             }
+        // }
+        $this->checkVisibility();
+    }
+
+    public function checkVisibility()
+    {
+        $user = auth()->user();
+        $route = request()->path();
+
+        // Lógica para mostrar u ocultar el select
+        if ($user->hasRole('Empleado') || $user->hasRole('Jefe')) {
+            $this->showSelect = false;
+        } elseif ($user->hasRole('RH') && $route === 'misSolicitudes') {
+            $this->showSelect = false;
+        } else {
+            $this->showSelect = true;
         }
     }
+
 
     public function updatedIdEmpleado($value)
     {
