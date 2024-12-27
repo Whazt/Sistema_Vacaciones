@@ -13,7 +13,10 @@ class ShowMisSolicitudes extends Component
     use WithPagination;
     public $id, $id_empleado, $fecha_inicio, $fecha_fin, $estado, $detalles, $aprobacion_jefe, $aprobacion_rh, $search;
     public $open_edit=false;
-    protected $listeners = ['actrender' => 'render'];
+    protected $listeners = [
+        'actrender' => 'render', 
+        'delete'=> 'delete'
+    ];
 
     public function edit($idempleado){
         $solicitud = Solicitud::find($idempleado);
@@ -45,8 +48,8 @@ class ShowMisSolicitudes extends Component
         $this->resetValidation();
     }
     
-    public function delete(Solicitud $solicitud){
-        $solicitud->delete();
+    public function delete($id){
+        Solicitud::find($id)->delete(); 
     }
 
     public function loadByUser(){

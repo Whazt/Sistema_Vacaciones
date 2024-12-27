@@ -46,8 +46,8 @@ class Show extends Component
         $this->dispatch('actrender');
     }
 
-    public function delete(User $user){
-        $user->delete();
+    public function delete($id){
+        User::find($id)->delete();
     }
 
     public function cancelar()

@@ -42,6 +42,9 @@ class Pendientes extends Component
                 // dd($solicitud->empleado->id_jefe);
                 $solicitud->estado = 'Aprobada';
             }
+            if($solicitud->empleado->id_jefe == auth()->user()->empleado->id){
+                $solicitud->estado = 'Aprobada';
+            }
             $solicitud->save();
         }    
     }

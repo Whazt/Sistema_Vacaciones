@@ -14,7 +14,10 @@ class Show extends Component
     public $id,$nombre,$descripcion,$id_area, $search;
     public $open_edit=false;
     public $areas;
-    protected $listeners = ['actrender' => 'render'];
+    protected $listeners = [
+        'actrender' => 'render',
+        'delete' => 'delete'
+    ];
 
     
     public function mount(){
@@ -50,8 +53,8 @@ class Show extends Component
         $this->resetValidation();
     }
 
-    public function delete(Cargo $cargo){
-        $cargo->delete();
+    public function delete($id){
+        Cargo::find($id)->delete();
     }
     
     public function updatingSearch(){

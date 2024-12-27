@@ -14,8 +14,10 @@ class Show extends Component
     use WithPagination;
     public $id,$descripcion, $nombre, $search;
     public $open_edit=false;
-    protected $listeners = ['actrender' => 'render'];
-
+    protected $listeners = [
+        'actrender' => 'render',
+        'delete' => 'delete'
+    ];
 
     public function edit($idarea)
     {
@@ -46,11 +48,13 @@ class Show extends Component
         $this->open_edit = false;
         $this->resetValidation();
     }
+
     public function updatingSearch(){
         $this->resetPage();
     }
-    public function delete(Area $area){
-        $area->delete();
+
+    public function delete($id){
+        Area::find($id)->delete();
     }
 
     public function render()

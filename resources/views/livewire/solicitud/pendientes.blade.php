@@ -40,7 +40,9 @@
                         @if( empty($item->aprobacion_rh))
                             <button wire:click="aprobar({{$item->id}})" class="mx-2 bg-blue-600 p-2 text-white rounded-md">
                                 Aprobar
-                            </button>
+                            </button>  
+                        @endif
+                        @if($item->estado == 'Pendiente')
                             <button wire:click="rechazar({{$item->id}})" class="mx-2 bg-red-600 p-2 text-white rounded-md ">
                                 Rechazar
                             </button>

@@ -9,6 +9,7 @@ use App\Models\Cargo;
 use App\Http\Requests\EmpleadoRequest;
 use Carbon\Carbon;
 use Livewire\WithPagination;
+use Livewire\Attributes\On;
 
 class Show extends Component
 {
@@ -17,7 +18,11 @@ class Show extends Component
     public $open_edit = false;
     public $area_selected, $search , $searchEmp, $searchCargo;
     public $cargos = [], $jefes = [];
-    protected $listeners = ['actrender' => 'render'];
+    protected $listeners = [
+        'actrender' => 'render',
+        'delete' => 'delete'
+    ];
+
 
     // metodos para editar y guardar
     public function edit($idempleado)
@@ -74,9 +79,10 @@ class Show extends Component
         $this->open_edit = false;
     }
     // metodos para borrar
-    public function delete(Empleado $empleado)
+
+    public function delete($id)
     {
-        $empleado->delete();
+        Empleado::find($id)->delete();
     }
     // metodos para CALCULAR DIAS DISPONIBLES
     public function calcularDiasVacacionesDisponibles($fechaIngreso, $diasUsados)
@@ -114,11 +120,6 @@ class Show extends Component
 
         $this->cargos= $cargos;    
     }
-
-    // public function load_cargos()
-    // {
-    //     $this->cargos_por_area = Cargo::where('id_area', $this->area_selected)->get();
-    // }
 
     public function loadCargosYEmpleados()
     {
