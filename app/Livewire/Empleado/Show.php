@@ -173,8 +173,8 @@ class Show extends Component
             });
         }
     
-        // Paginación con transformación
-        $empleados = $query->paginate(5); // Número de registros por página
+    
+        $empleados = $query->paginate(5); 
     
         // Transformar los datos
         $empleados->getCollection()->transform(function ($empleado) {
@@ -185,7 +185,7 @@ class Show extends Component
             return $empleado;
         });
     
-        // Devuelve directamente el objeto paginado, compatible con foreach
+    
         return $empleados;
     }
 
