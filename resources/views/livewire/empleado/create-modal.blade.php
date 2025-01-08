@@ -43,15 +43,15 @@
                 @enderror
             </div>
             <div class="mb-5">
-                <label for="telefono" class="block mb-2 text-sm font-medium text-gray-900 ">Días de vacaciones usados</label>
-                <input wire:model="dias_vacaciones_usados" type="number" id="telefono" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  " required />
+                <label for="dias_vacaciones_usados" class="block mb-2 text-sm font-medium text-gray-900 ">Días de vacaciones usados</label>
+                <input wire:model="dias_vacaciones_usados" type="text" id="telefono"  oninput="this.value = this.value.replace(/[^0-9]/g, '')"class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  " required />
                 @error('dias_vacaciones_usados')
                     <p class="text-red-500 text-xs italic">{{ $message }}</p> 
                 @enderror
             </div>
             <div class="mb-5">
                 <label for="telefono" class="block mb-2 text-sm font-medium text-gray-900 ">Télefono</label>
-                <input wire:model="telefono" type="number" id="telefono" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  " required />
+                <input wire:model="telefono" type="text" id="telefono"  oninput="this.value = this.value.replace(/[^0-9]/g, '')" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  " required />
                 @error('telefono')
                     <p class="text-red-500 text-xs italic">{{ $message }}</p> 
                 @enderror
