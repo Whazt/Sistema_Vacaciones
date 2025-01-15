@@ -183,6 +183,7 @@
                     <p class="text-red-500 text-xs italic">{{ $message }}</p>                    
                 @enderror
             </div>
+            @if(!auth()->user()->hasRole("Empleado"))
             <div class="mb-5">
                 <label for="estado" class="block mb-2 text-sm font-medium text-gray-900 ">Estado</label>
                 <select id="estado" wire:model="estado"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  ">
@@ -195,6 +196,7 @@
                     @enderror
                 </select>
             </div>
+            @endif
             <div class="mb-5">
                 <label for="detalle" class="block mb-2 text-sm font-medium text-gray-900 ">Detalles</label>
                 <textarea wire:model="detalles" type="text" id="detalle" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  " required ></textarea>
