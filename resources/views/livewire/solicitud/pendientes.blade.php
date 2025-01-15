@@ -27,20 +27,42 @@
                     <span class="text-green-500 font-semibold">{{$item->estado}}</span>
                 </p>
                 <div class="flex ">
+
+                    @php
+                        $fechaIngreso = Carbon\Carbon::parse($item->empleado->fecha_ingreso); // Fecha de ingreso del empleado
+                        $fechaActual = now();
+                        $diasTrabajados = floor($fechaIngreso->diffInDays($fechaActual));
+                        $tasaDiariaVacaciones = 30 / 365; // Vacaciones acumuladas diarias
+                        $vacacionesAcumuladas = $diasTrabajados * $tasaDiariaVacaciones;
+                        $vacacionesAcumuladas = round($vacacionesAcumuladas, 2);
+
+                        $diasUsados = $item->empleado->dias_vacaciones_usados; // Días ya tomados
+                        $diasDisponibles = max(0, $vacacionesAcumuladas - $diasUsados); 
+
+                        $fechaInicio = Carbon\Carbon::parse($item->fecha_inicio);
+                        $fechaFin = Carbon\Carbon::parse($item->fecha_fin);
+                        $diasEntreFechas = $fechaInicio->diffInDays($fechaFin) + 1; 
+                    @endphp
                     @if(auth()->user()->hasRole("Jefe"))
                         @if( empty($item->aprobacion_jefe))
+                            @if($diasDisponibles >= $diasEntreFechas)
                             <button wire:click="aprobar({{$item->id}})" class="mx-2 bg-blue-600 p-2 text-white rounded-md">
                                 Aprobar
                             </button>
+                            @endif
+                            @if($item->estado == 'Pendiente')
                             <button wire:click="rechazar({{$item->id}})" class="mx-2 bg-red-600 p-2 text-white rounded-md ">
                                 Rechazar
                             </button>
                         @endif
+                        @endif
                     @elseif(auth()->user()->hasRole("RH"))
                         @if( empty($item->aprobacion_rh))
+                            @if($diasDisponibles >= $diasEntreFechas)
                             <button wire:click="aprobar({{$item->id}})" class="mx-2 bg-blue-600 p-2 text-white rounded-md">
                                 Aprobar
-                            </button>  
+                            </button>
+                            @endif
                         @endif
                         @if($item->estado == 'Pendiente')
                             <button wire:click="rechazar({{$item->id}})" class="mx-2 bg-red-600 p-2 text-white rounded-md ">

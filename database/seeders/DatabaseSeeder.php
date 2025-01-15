@@ -111,11 +111,11 @@ class DatabaseSeeder extends Seeder
                 'nombres' => $nombres,
                 'apellidos' => $apellidos,
                 'correo' => $correo,
-                'id_cargo' => null, // Dejar vacío
+                'id_cargo' => null, 
                 'fecha_ingreso' => $faker->date(),
                 'dias_vacaciones_usados' => 0,
                 'telefono' => $telefono,
-                'id_jefe' => null, // Dejar vacío
+                'id_jefe' => null, 
                 'estado' => 'activo',
             ]);
             $empleado->save();
@@ -130,20 +130,20 @@ class DatabaseSeeder extends Seeder
             $user->assignRole('Empleado');
         }
 
-           // Creación de 5 registros para la tabla 'solicitudes'
+          
             // Id de empleados disponibles
 
            for ($i = 0; $i < 20 ; $i++) {
                $solicitud = new Solicitud([
-                   'id_empleado' =>  $faker->numberBetween(2,16), // Elige aleatoriamente entre los empleados 1 y 2
-                   'fecha_inicio' => Carbon::now()->addDays($i)->toDateString(), // Fecha de inicio en los próximos días
-                   'fecha_fin' => Carbon::now()->addDays($i + 1)->toDateString(), // Fecha de fin al siguiente día
-                   'estado' => 'Pendiente', // Estado por defecto
-                   'detalles' => 'Solicitud de prueba ' . ($i + 1), // Detalles de la solicitud
-                   'aprobacion_jefe' => null, // Sin aprobación del jefe
-                   'aprobacion_rh' => null, // Sin aprobación de RH
+                   'id_empleado' =>  $faker->numberBetween(2,16), 
+                   'fecha_inicio' => Carbon::now()->addDays($i)->toDateString(), 
+                   'fecha_fin' => Carbon::now()->addDays($i + 1)->toDateString(), 
+                   'estado' => 'Pendiente', 
+                   'detalles' => 'Solicitud de prueba ' . ($i + 1), 
+                   'aprobacion_jefe' => null,
+                   'aprobacion_rh' => null,
                ]);
-               $solicitud->save(); // Guarda el registro en la base de datos
+               $solicitud->save();
             }
     }
 }

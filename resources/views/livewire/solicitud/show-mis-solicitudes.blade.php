@@ -188,7 +188,7 @@
                 <select id="estado" wire:model="estado"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  ">
                     <option value="">Selecciona un Estado</option>
                     <option value="Pendiente">Pendiente</option>
-                    <option value="Aprobado">Aprobado</option>
+                    <option value="Aprobada">Aprobada</option>
                     <option value="Rechazado">Rechazado</option>
                     @error('estado')
                         <p class="text-red-500 text-xs italic">{{ $message }}</p>                    
